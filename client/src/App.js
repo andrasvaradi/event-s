@@ -13,7 +13,8 @@ function App() {
   useEffect(() => {
     EventsApiService.getEvents()
       .then(event => setEvents(event))
-      .then(() => setStatus(true));
+      .then(() => setStatus(true))
+      .then(console.log(events));
   },[])
 
   return (
