@@ -8,6 +8,7 @@ import {
   Text,
   VStack,
   useBreakpointValue,
+  Image
 } from '@chakra-ui/react';
 import { Link as RouterLink } from 'react-router-dom';
 
@@ -29,13 +30,14 @@ function Home() {
         bgGradient={'linear(to-r, blackAlpha.900, transparent)'}
         >
         <Stack maxW={'2xl'} align={'center'} spacing={6}>
-          <Text
+          {/* <Text
             color={'white'}
             fontWeight={700}
             lineHeight={1.2}
             fontSize={useBreakpointValue({ base: '3xl', md: '4xl' })}>
             EVENT-S
-          </Text>
+          </Text> */}
+          <Image src={'logo-white.png'}  alt=""></Image>
           <Text
             color={'white'}
             fontWeight={300}

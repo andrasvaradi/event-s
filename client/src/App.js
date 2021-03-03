@@ -3,12 +3,19 @@ import React, { useEffect, useState} from 'react';
 import EventsApiService from './services/EventsApiService';
 import Spinner from "./components/Handling/Spinner";
 import { Route, Switch } from 'react-router-dom';
-import Home from './components/Home/Home';
+import Home from './components/Home';
 import Error from './components/Handling/Error';
+import NavBar from './components/Navbar';
+import Login from './components/User/Login';
+import Register from './components/User/Register';
+import auth from './utils/auth';
+
 
 function App() {
   const [status, setStatus] = useState(false);
   const [events, setEvents] = useState([])
+  const initialState = auth.isAuthenticated();
+  const [isAuthenticated, setIsAuthenticated] = useState(initialState);
 
   useEffect(() => {
     EventsApiService.getEvents()
@@ -24,8 +31,21 @@ function App() {
         <Spinner />
         :
         <main>
+          <NavBar />
           <Switch>
             <Route path='/' exact component={Home}/>
+            <Route
+              path="/register"
+              render={(props) => (
+                <Register {...props} setIsAuthenticated={setIsAuthenticated} />
+              )}
+            />
+            <Route
+              path="/login"
+              render={(props) => (
+                <Login {...props} setIsAuthenticated={setIsAuthenticated} />
+              )}
+            />
             <Route component={Error} />
           </Switch>
         </main>
