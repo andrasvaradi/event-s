@@ -11,15 +11,16 @@ const userSchema = new Schema ({
   },
   firstName: {
     type: String,
-    required: true,
   },
   lastName: {
     type: String,
-    required: true,
   },
   host: {
     type: Boolean,
     required: true,
+  },
+  photos: {
+    type: String,
   },
   about: {
     type: String,
@@ -28,8 +29,8 @@ const userSchema = new Schema ({
     type: String,
   },
   events: [{
-    type: Schema.Types.ObjectId, ref: 'Event',
+    type: Schema.Types.ObjectId, ref: 'Events',
   }],
 });
 
-module.exports = model('Users', userSchema);
+module.exports = model('User', userSchema);
