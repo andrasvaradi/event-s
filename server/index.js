@@ -14,7 +14,6 @@ app.use(router);
 (async function () {
   try {
     await connection;
-    console.log('Database connected 👏');
     app.listen(config.port, () => {
       console.log(`
       .__________________________.

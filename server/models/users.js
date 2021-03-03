@@ -21,6 +21,9 @@ const userSchema = new Schema ({
     type: Boolean,
     required: true,
   },
+  about: {
+    type: String,
+  },
   location: {
     type: String,
   },

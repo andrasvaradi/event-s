@@ -1,5 +1,5 @@
 module.exports = {
-  port: 5000,
+  port: 4000,
   host: 'localhost',
   dbName: 'solo',
   dbPort: '27017',

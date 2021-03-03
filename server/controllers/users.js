@@ -1,67 +1,70 @@
-const Events = require('../models/EventsModel');
+const bcrypt = require('bcrypt');
+const User = require('../models/users');
 
+const create = async (req, res) => {
 
-exports.getEvents = async (req,res) => {
+  const { email, password } = req.body;
+  const user = await User.findOne({ email: email });
+  if (user)
+    return res
+      .status(409)
+      .send({ error: '409', message: 'User already exists' });
   try {
-    const events = await Events.find();
-    res.status(200);
-    res.send(events);
-  } catch (O_O) {
-    console.error('GET EVENTS: ',error);
-    res.status(500);
-    res.send(O_O);
-  }
-};
-exports.getSingleEvent = async (req,res) => {
-  try {
-    const { id } = req.params;
-    const event = await Events.find({_id: id});
-    res.status(200);
-    res.send(event);
-  } catch (O_O) {
-    console.error('SINGLE EVENT: ',error);
-    res.status(500);
-    res.send(O_O);
-  }
-};
-exports.postEvent = async (req,res) => {
-  try {
-    // const { title, date, venue } = req.body;
-    const events = await Events.create(req.body);
-    res.status(201);
-    res.send(events);
-  } catch (O_O) {
-    console.error('POST EVENT: ',error);
-    res.status(400);
-    res.send(O_O);
-  }
-};
-
-exports.deleteEvent = async (req,res) => {
-  try {
-    const { id } = req.params;
-    const event = await Events.deleteOne({ _id: id});
-    res.status(204);
-    res.send(event);
+    if (password === '') throw new Error();
+    const hash = await bcrypt.hash(password, 10);
+    const newUser = new User({
+      ...req.body,
+      password: hash,
+    });
+    const user = await newUser.save();
+    req.session.uid = user._id;
+    res.status(201).send(user);
   } catch (error) {
-    console.error('DELETE EVENT: ',error);
-    res.status(500);
-    res.send(error);
-  } 
+    res.status(400).send({ error, message: 'Could not create user' });
+  }
+
 };
 
-exports.updateEvent = async (req,res) => {
+const login = async (req, res) => {
+
   try {
-    const { id } = req.params;
-    const event = await Events.findByIdAndUpdate(
-      id,
-      req.body,
-      { new: true}
-    );
-    res.send(event);
+    const { email, password } = req.body;
+    const user = await User.findOne({ email: email });
+    const validatedPass = await bcrypt.compare(password, user.password);
+    if (!validatedPass) throw new Error();
+    req.session.uid = user._id;
+    res.status(200).send(user);
   } catch (error) {
-    console.error('UPDATE EVENT: ',error);
-    res.status(500);
-    res.send(error);
+    res
+      .status(401)
+      .send({ error: '401', message: 'Username or password is incorrect' });
+  }
+
+};
+
+const profile = async (req, res) => {
+
+  try {
+    const { _id, firstName, lastName } = req.user;
+    const user = { _id, firstName, lastName };
+    res.status(200).send(user);
+  } catch {
+    res.status(404).send({ error, message: 'User not found' });
   }
 };
+
+const logout = (req, res) => {
+
+  req.session.destroy((error) => {
+    if (error) {
+      res
+        .status(500)
+        .send({ error, message: 'Could not log out, please try again' });
+    } else {
+      res.clearCookie('sid');
+      res.sendStatus(200);
+    }
+  });
+};
+
+module.exports = { create, login, profile, logout };
