@@ -12,6 +12,10 @@ import { Link as RouterLink } from 'react-router-dom';
 const initialState = {
   firstName: '',
   lastName: '',
+  host: null,
+  about: '',
+  location: '',
+  events: null
 };
 export default function Profile() {
   const [state, setState] = useState(initialState);
@@ -21,14 +25,16 @@ export default function Profile() {
       const userInfo = await UsersApiService.profile();
       console.log(userInfo)
       if (userInfo) {
-        const { firstName, lastName } = userInfo;
-        setState((prevState) => {
-          return {
-            ...prevState,
-            firstName,
-            lastName,
-          };
-        });
+        // const { firstName, lastName } = userInfo;
+        setState(userInfo)
+        // const { firstName, lastName } = userInfo;
+        // setState((prevState) => {
+        //   return {
+        //     ...prevState,
+        //     firstName,
+        //     lastName,
+        //   };
+        // });
       } else {
         console.log('No user info found 😞');
       }
@@ -39,7 +45,7 @@ export default function Profile() {
 
   return (
     <Flex minH={'100vh'} align={'center'} justify={'center'} bg={'gray.50'}>
-      <Text>Hello {state.firstName} {state.lastName}</Text>
+      <Text>Hello {state.firstName} {state.lastName} , you are a {state.host ? 'host' : 'guest'}</Text>
     </Flex>
   )
 }

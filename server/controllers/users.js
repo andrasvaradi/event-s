@@ -45,8 +45,8 @@ const login = async (req, res) => {
 const profile = async (req, res) => {
 
   try {
-    const { _id, firstName, lastName } = req.user;
-    const user = { _id, firstName, lastName };
+    const { _id, firstName, lastName, host, photos, about, location, events } = req.user;
+    const user = { _id, firstName, lastName, host, photos, about, location, events };
     res.status(200).send(user);
   } catch {
     res.status(404).send({ error, message: 'User not found' });

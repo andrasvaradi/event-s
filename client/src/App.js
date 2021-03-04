@@ -11,7 +11,10 @@ import Login from './components/User/Login';
 import Register from './components/User/Register';
 import Logout from './components/User/Logout';
 import Profile from './components/User/Profile';
+import Events from './containers/Events/Events';
+import EventDetails from './components/Event/EventDetails';
 import auth from './utils/auth';
+import { EventsContext } from './EventsContext';
 
 
 function App() {
@@ -20,12 +23,14 @@ function App() {
   const initialState = auth.isAuthenticated();
   const [isAuthenticated, setIsAuthenticated] = useState(initialState);
 
+
   useEffect(() => {
     EventsApiService.getEvents()
-      .then(event => setEvents(event))
-      .then(() => setStatus(true))
-      .then(console.log(events));
+    .then(event => setEvents(event))
+    .then(() => setStatus(true))
+    .then(console.log(events));
   },[])
+  // const EventsContext = React.createContext(null);
 
   return (
     <div className="App">
@@ -56,6 +61,15 @@ function App() {
                 <Logout {...props} setIsAuthenticated={setIsAuthenticated} />
               )}
             />
+            <EventsContext.Provider value={events}>
+              <Route path='/events/:id' component={EventDetails}/>
+              {/* <Route path='/events/:id' render={() => (
+                <EventDetails value={events} />
+              )}/> */}
+              <Route path='/events' exact render={() => (
+                <Events value={events} />
+              )}/>
+            </EventsContext.Provider>
             <Route component={Error} />
           </Switch>
         </main>
