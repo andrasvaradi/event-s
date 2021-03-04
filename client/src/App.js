@@ -12,26 +12,23 @@ import Login from './components/User/Login';
 import Register from './components/User/Register';
 import Logout from './components/User/Logout';
 import Profile from './components/User/Profile';
-import Events from './containers/Events/Events';
+import Events from './containers/events/Events';
 import EventDetails from './components/Event/EventDetails';
-import { EventsContext } from './EventsContext';
-import NewEvent from "./containers/Events/NewEvent";
-
+import NewEvent from "./containers/events/NewEvent";
+import MyEvents from './containers/events/MyEvents';
 
 function App() {
   const [status, setStatus] = useState(false);
   const [events, setEvents] = useState([])
   const initialState = auth.isAuthenticated();
   const [isAuthenticated, setIsAuthenticated] = useState(initialState);
-
+  const [user, setUser] = useState({})
 
   useEffect(() => {
     EventsApiService.getEvents()
     .then(event => setEvents(event))
     .then(() => setStatus(true))
-    .then(console.log(events));
   },[])
-  console.log(events)
 
   const createEvent = (body) => {
     EventsApiService.createEvent(body)
@@ -60,26 +57,26 @@ function App() {
                 <Login {...props} setIsAuthenticated={setIsAuthenticated} />
               )}
             />
-            <Route path="/profile" component={Profile} />
             <Route
               path="/logout"
               render={(props) => (
                 <Logout {...props} setIsAuthenticated={setIsAuthenticated} />
-              )}
+                )}
             />
             <Route path='/new-event' render={() => (
               <NewEvent createEvent={createEvent} />
-            )}/>
-            <EventsContext.Provider value={'hello'}>
-              <Route path='/events/:id' component={EventDetails}/>
-              {/* <Route path='/events/:id' render={() => (
-                <EventDetails value={events} />
-              )}/> */}
-              {/* <Route path='/events' exact component={Events}/> */}
+              )}/>
+              <Route path="/profile" render={() => (
+                <Profile user={user} setUser={setUser}/>)}/>
+              <Route path='/my-events' exact render={() => (
+                <MyEvents user={user}/>)}/>
+
               <Route path='/events' exact render={() => (
                 <Events value={events} />
               )}/>
-            </EventsContext.Provider>
+              <Route path='/events/:id' render={() => (
+                <EventDetails  events={events}/>
+              )}/>
             <Route component={Error} />
           </Switch>
         </main>

@@ -28,7 +28,7 @@ const userSchema = new Schema ({
   location: {
     type: String,
   },
-  events: [{
+  eventList: [{
     type: Schema.Types.ObjectId, ref: 'Events',
   }],
 });

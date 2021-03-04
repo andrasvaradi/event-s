@@ -27,13 +27,12 @@ exports.getSingleEvent = async (req,res) => {
 };
 exports.postEvent = async (req,res) => {
   try {
-    // const { title, date, venue } = req.body;
     const { _id } = req.user;
     const newEvent = {...req.body, owner: _id};
     console.log(newEvent);
     const events = await Events.create(newEvent);
     console.log(events);
-    const addToUser = await Users.findByIdAndUpdate(_id, { $push: { events: _id}},{new:true});
+    const addToUser = await Users.findByIdAndUpdate(_id, { $push: { eventList: events._id}},{new:true});
     console.log(addToUser);
     res.status(201);
     res.send(events);

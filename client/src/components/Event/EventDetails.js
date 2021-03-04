@@ -1,21 +1,14 @@
-import React, {useContext, useState, useEffect} from 'react'
+import React from 'react'
 import { Flex, Stack, Text } from '@chakra-ui/react';
 import { useParams } from 'react-router-dom';
-// import EventsApiService from '../../services/EventsApiService';
 import Spinner from '../Handling/Spinner'
-import {EventsContext} from '../../EventsContext';
 
 
-export default function EventDetails (props) {
-  const [event, setEvent] = useState(null)
-  const events = useContext(EventsContext);
+export default function EventDetails ({events}) {
+
   let { id } = useParams();
+  const event = events.find(el => el._id === id)
 
-  useEffect(() => {
-    let single = events.find(el => el._id === id)
-    setEvent(single)
-  }, [])
-  console.log(event)
   return (
     <Flex minH={'100vh'} align={'center'} justify={'center'} bg={'gray.50'}>
     {

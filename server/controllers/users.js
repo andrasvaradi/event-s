@@ -45,10 +45,13 @@ const login = async (req, res) => {
 const profile = async (req, res) => {
 
   try {
-    const { _id, firstName, lastName, host, photos, about, location, events } = req.user;
-    const user = { _id, firstName, lastName, host, photos, about, location, events };
+    const populatedUser = await (await User.findOne({ _id: req.user._id}).populate('eventList'));
+    console.log(populatedUser);
+    const { _id, firstName, lastName, host, photos, about, location, eventList } = populatedUser;
+    const user = { _id, firstName, lastName, host, photos, about, location, eventList };
+    console.log(user);
     res.status(200).send(user);
-  } catch {
+  } catch (error) {
     res.status(404).send({ error, message: 'User not found' });
   }
 };
@@ -66,5 +69,29 @@ const logout = (req, res) => {
     }
   });
 };
+const getUsers = async (req,res) => {
+  try {
+    const users = await User.find();
+    res.status(200);
+    res.send(users);
+  } catch (O_O) {
+    console.error('GET USERS: ',error);
+    res.status(500);
+    res.send(O_O);
+  }
+};
+const deleteUser = async (req,res) => {
+  try {
+    const { id } = req.params;
+    await User.deleteOne({ _id: id});
+    res.status(204);
+    res.send({msg: `Deleted user ${id}`});
+  } catch (error) {
+    console.error('DELETE USER: ',error);
+    res.status(500);
+    res.send(error);
+  }
+};
 
-module.exports = { create, login, profile, logout };
+
+module.exports = { create, login, profile, logout, getUsers, deleteUser };

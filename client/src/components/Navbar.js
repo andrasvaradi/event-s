@@ -46,7 +46,7 @@ const NavigationLink = ({ children, to }) => (
 
 export default function NavigationBar({ isAuthenticated }) {
   const { isOpen } = useDisclosure();
-  console.log(isAuthenticated)
+  // console.log(isAuthenticated)
   return (
     <>
       <Box
@@ -110,7 +110,7 @@ export default function NavigationBar({ isAuthenticated }) {
                     isAuthenticated ?
                     // <MenuList>
                     <>
-                    <RouterLink to="/events">
+                    <RouterLink to="/my-events">
                       <MenuItem>My events</MenuItem>
                     </RouterLink >
                     <RouterLink to="/new-event">
@@ -149,24 +149,6 @@ export default function NavigationBar({ isAuthenticated }) {
                     </RouterLink>
                   }
               </MenuList>
-              {/* <MenuList>
-                <RouterLink to="/events">
-                  <MenuItem>My events</MenuItem>
-                </RouterLink >
-                <RouterLink to="/new-event">
-                  <MenuItem>New event</MenuItem>
-                </RouterLink >
-                <RouterLink to="/profile">
-                  <MenuItem>Profile</MenuItem>
-                </RouterLink >
-                <MenuDivider />
-                <RouterLink to="/logout">
-                  <MenuItem>Logout</MenuItem>
-                </RouterLink>
-                <RouterLink to="/login">
-                  <MenuItem>Sign In</MenuItem>
-                </RouterLink>
-              </MenuList> */}
             </Menu>
           </Flex>
         </Flex>
@@ -181,8 +163,6 @@ export default function NavigationBar({ isAuthenticated }) {
           </Box>
         ) : null}
       </Box>
-
-      {/* <Box p={4}>Main Content Here</Box> */}
     </>
   );
 }
