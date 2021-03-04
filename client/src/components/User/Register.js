@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link as RouterLink } from 'react-router-dom';
+// import { Link as RouterLink } from 'react-router-dom';
 import UsersApiService from '../../services/UsersApiService';
 import auth from '../../utils/auth';
 import {
@@ -12,6 +12,7 @@ import {
   Stack,
   Button,
   Heading,
+  FormHelperText
 } from '@chakra-ui/react';
 
 const initialState = {
@@ -45,7 +46,7 @@ export default function Register(props) {
     } else {
 
       props.setIsAuthenticated(true);
-      // auth.login(() => props.history.push('/profile'));
+      auth.login(() => props.history.push('/profile'));
 
     }
   };
@@ -94,6 +95,7 @@ export default function Register(props) {
                 value={state.email}
                 onChange={handleChange}
               />
+                            <FormHelperText>We'll never share your email. I don't know how!</FormHelperText>
             </FormControl>
             <FormControl id="password" isRequired>
               <FormLabel>Password</FormLabel>
@@ -116,7 +118,7 @@ export default function Register(props) {
             </FormControl>
             {/* <RouterLink to='/'> */}
               <Button
-                bg={'gray.200'}
+                bg={'gray.300'}
                 color={'white'}
                 _hover={{
                   bg: 'gray.500',

@@ -100,9 +100,15 @@ export default function NavigationBar() {
                 <RouterLink to="/create-event">
                   <MenuItem>New event</MenuItem>
                 </RouterLink >
+                <RouterLink to="/profile">
+                  <MenuItem>Profile</MenuItem>
+                </RouterLink >
                 <MenuDivider />
                 <RouterLink to="/login">
                   <MenuItem>Sign In</MenuItem>
+                </RouterLink>
+                <RouterLink to="/logout">
+                  <MenuItem>Logout</MenuItem>
                 </RouterLink>
               </MenuList>
             </Menu>

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import './App.css';
 import React, { useEffect, useState} from 'react';
 import EventsApiService from './services/EventsApiService';
@@ -8,6 +9,8 @@ import Error from './components/Handling/Error';
 import NavBar from './components/Navbar';
 import Login from './components/User/Login';
 import Register from './components/User/Register';
+import Logout from './components/User/Logout';
+import Profile from './components/User/Profile';
 import auth from './utils/auth';
 
 
@@ -44,6 +47,13 @@ function App() {
               path="/login"
               render={(props) => (
                 <Login {...props} setIsAuthenticated={setIsAuthenticated} />
+              )}
+            />
+            <Route path="/profile" component={Profile} />
+            <Route
+              path="/logout"
+              render={(props) => (
+                <Logout {...props} setIsAuthenticated={setIsAuthenticated} />
               )}
             />
             <Route component={Error} />
