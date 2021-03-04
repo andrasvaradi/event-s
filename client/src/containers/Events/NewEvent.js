@@ -34,7 +34,7 @@ const EventObject = {
 }
 
 
-export default function NewEvent({createEvent}) {
+export default function NewEvent({createEvent, user}) {
   const [event, setEvent] = useState(EventObject)
 
   let handleInputChange = (e) => {
@@ -57,6 +57,8 @@ export default function NewEvent({createEvent}) {
   return (
     <Flex minH={'100vh'} align={'center'} justify={'center'} bg={'gray.50'}>
       <Box rounded={'lg'} bg={'white'} boxShadow={'base'} p={8} minH={'80vh'} minW={'40vh'} w={'80%'} >
+        { user.host ?
+        <>
         <Text mb={16} fontSize={'4xl'} align={'center'}>Create a new event</Text>
 
         <Flex justify={'center'} justifyContent={'space-between'} alignContent={'center'} wrap={'wrap'}>
@@ -184,6 +186,10 @@ export default function NewEvent({createEvent}) {
             </Button>
           </RouterLink>
         </Stack>
+        </>
+        :
+        <Text align={'center'}>Only hosts can create new event</Text>
+      }
       </Box>
     </Flex>
   )

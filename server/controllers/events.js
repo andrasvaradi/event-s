@@ -27,6 +27,7 @@ exports.getSingleEvent = async (req,res) => {
 };
 exports.postEvent = async (req,res) => {
   try {
+    // if (!req.user.host) throw Error;
     const { _id } = req.user;
     const newEvent = {...req.body, owner: _id};
     console.log(newEvent);
@@ -53,7 +54,7 @@ exports.deleteEvent = async (req,res) => {
     console.error('DELETE EVENT: ',error);
     res.status(500);
     res.send(error);
-  } 
+  }
 };
 
 exports.updateEvent = async (req,res) => {

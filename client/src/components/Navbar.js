@@ -44,9 +44,9 @@ const NavigationLink = ({ children, to }) => (
   </Text>
 );
 
-export default function NavigationBar({ isAuthenticated }) {
+export default function NavigationBar({ isAuthenticated, user }) {
   const { isOpen } = useDisclosure();
-  // console.log(isAuthenticated)
+  console.log(user)
   return (
     <>
       <Box
@@ -113,9 +113,12 @@ export default function NavigationBar({ isAuthenticated }) {
                     <RouterLink to="/my-events">
                       <MenuItem>My events</MenuItem>
                     </RouterLink >
-                    <RouterLink to="/new-event">
-                      <MenuItem>New event</MenuItem>
-                    </RouterLink >
+                    {
+                      user.host && 
+                      <RouterLink to="/new-event">
+                        <MenuItem>New event</MenuItem>
+                      </RouterLink >
+                    }
                     <RouterLink to="/profile">
                       <MenuItem>Profile</MenuItem>
                     </RouterLink >

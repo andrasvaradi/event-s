@@ -12,7 +12,7 @@ import {
   Stack,
   Button,
   Heading,
-  FormHelperText
+  FormHelperText,
 } from '@chakra-ui/react';
 
 const initialState = {
@@ -20,25 +20,29 @@ const initialState = {
   password: '',
   firstName: '',
   lastName: '',
-  host: null,
+  host: '',
 };
 
 export default function Register(props) {
   const [state, setState] = useState(initialState);
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    let { name, value } = e.target;
+    if (name === 'host') {
+      value = value === 'Guest' ? false : true
+    }
     setState((prevState) => ({
       ...prevState,
       [name]: value,
     }));
+    console.log(state)
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const { email, password, firstName, lastName, host } = state;
-    const user = { email, password, firstName, lastName, host };
+    const user = { email, password, firstName, lastName, host};
     const res = await UsersApiService.register(user);
     if (res.error) {
       alert(`${res.message}`);
@@ -53,7 +57,7 @@ export default function Register(props) {
 
   const validateForm = () => {
     return (
-      !state.email || !state.password || !state.firstName || !state.lastName || !state.host
+      !state.email || !state.password || !state.firstName || !state.lastName || !state.host === ""
     );
   };
   return (
@@ -65,7 +69,7 @@ export default function Register(props) {
         <Box rounded={'lg'} bg={'white'} boxShadow={'lg'} p={8}>
 
           <Stack spacing={4}>
-            <FormControl id="first_name" isRequired>
+            <FormControl id="first_name">
               <FormLabel>First name</FormLabel>
               <Input
                 id="first_name"
@@ -75,7 +79,7 @@ export default function Register(props) {
                 onChange={handleChange}
               />
             </FormControl>
-            <FormControl id="last_name" isRequired>
+            <FormControl id="last_name">
               <FormLabel>Last name</FormLabel>
               <Input
                 id="last_name"
@@ -85,7 +89,7 @@ export default function Register(props) {
                 onChange={handleChange}
               />
             </FormControl>
-            <FormControl id="email" isRequired>
+            <FormControl id="email">
               <FormLabel>Email address</FormLabel>
               <Input
                 type="email"
@@ -95,9 +99,9 @@ export default function Register(props) {
                 value={state.email}
                 onChange={handleChange}
               />
-                            <FormHelperText>We'll never share your email. I don't know how!</FormHelperText>
+            <FormHelperText>I'll never share your email. I don't know how!</FormHelperText>
             </FormControl>
-            <FormControl id="password" isRequired>
+            <FormControl id="password">
               <FormLabel>Password</FormLabel>
               <Input
                 type="password"
@@ -109,14 +113,13 @@ export default function Register(props) {
             </FormControl>
 
             <Stack spacing={10}>
-            <FormControl id="type" isRequired>
+            <FormControl id="type">
               <FormLabel>Type of user</FormLabel>
-              <Select placeholder="Hosting or attending?">
-                  <option value={state.host = false}>Guest</option>
-                  <option value={state.host = true}>Host</option>
+              <Select name="host" onChange={handleChange} placeholder="Hosting or attending?">
+                  <option>Guest</option>
+                  <option>Host</option>
               </Select>
             </FormControl>
-            {/* <RouterLink to='/'> */}
               <Button
                 bg={'gray.300'}
                 color={'white'}
@@ -128,7 +131,7 @@ export default function Register(props) {
               >
                 Sign up
               </Button>
-            {/* </RouterLink> */}
+
             </Stack>
           </Stack>
         </Box>

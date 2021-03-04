@@ -1,10 +1,13 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect, useContext } from 'react';
 import UsersApiService from '../../services/UsersApiService';
+import { Link as RouterLink, Route } from 'react-router-dom';
+import EventList from '../Event/EventList';
 import {
   Flex,
   Box,
   Text,
+  Button
 } from '@chakra-ui/react';
 
 const initialState = {
@@ -16,7 +19,7 @@ const initialState = {
   events: []
 };
 export default function Profile({user, setUser}) {
-
+  function reroute() {}
   useEffect(() => {
     const getProfile = async () => {
       const userInfo = await UsersApiService.profile();
@@ -33,18 +36,26 @@ export default function Profile({user, setUser}) {
 
   return (
     <Flex minH={'100vh'} align={'center'} bg={'gray.50'} justify={'center'} flexDirection={'column'}>
-      <Text>Hello {user.firstName} {user.lastName}</Text>
-      <Text>You are a {user.host ? 'host' : 'guest'}</Text>
-      {/* <Text>Hello {state.firstName} {state.lastName}</Text>
-      <Text>You are a {state.host ? 'host' : 'guest'}</Text> */}
-      {/* <Text>Your events: {state.events.length ? state.events.length : 0}</Text> */}
-      {/* {
-        state.events.length ?
-        //  <EventList value={state.events} />
-        <Text>YES</Text>
+      {
+        user.firstName ?
+        <>
+        <Text>Hello {user.firstName} {user.lastName}</Text>
+        <Text>You are a {user.host ? 'host' : 'guest'}</Text>
+        <Text>Your events: {user.eventList.length ? user.eventList.length : 0}</Text>
+        {
+          user.eventList.length ?
+          <>
+           <EventList value={user.eventList} />
+          </>
+          :
+          <Text>You haven't got any events yet.</Text>
+        }
+        </>
         :
-        <Text>You haven't got any events yet.</Text>
-      } */}
+        <RouterLink to='/login'>
+          <Button>You need to log in first</Button>
+        </RouterLink>
+      }
     </Flex>
   )
 }

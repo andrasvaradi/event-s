@@ -42,7 +42,7 @@ function App() {
         <Spinner />
         :
         <main>
-          <NavBar isAuthenticated={isAuthenticated} />
+          <NavBar isAuthenticated={isAuthenticated} user={user} />
           <Switch>
             <Route path='/' exact component={Home}/>
             <Route
@@ -64,7 +64,7 @@ function App() {
                 )}
             />
             <Route path='/new-event' render={() => (
-              <NewEvent createEvent={createEvent} />
+              <NewEvent createEvent={createEvent} user={user}/>
               )}/>
               <Route path="/profile" render={() => (
                 <Profile user={user} setUser={setUser}/>)}/>
