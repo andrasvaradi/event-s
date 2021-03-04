@@ -14,7 +14,7 @@ export default function EventDetails (props) {
   useEffect(() => {
     let single = events.find(el => el._id === id)
     setEvent(single)
-  })
+  }, [])
   console.log(event)
   return (
     <Flex minH={'100vh'} align={'center'} justify={'center'} bg={'gray.50'}>

@@ -6,6 +6,7 @@ import Spinner from "./components/Handling/Spinner";
 import { Route, Switch } from 'react-router-dom';
 import Home from './components/Home';
 import Error from './components/Handling/Error';
+import auth from './utils/auth';
 import NavBar from './components/Navbar';
 import Login from './components/User/Login';
 import Register from './components/User/Register';
@@ -13,8 +14,8 @@ import Logout from './components/User/Logout';
 import Profile from './components/User/Profile';
 import Events from './containers/Events/Events';
 import EventDetails from './components/Event/EventDetails';
-import auth from './utils/auth';
 import { EventsContext } from './EventsContext';
+import NewEvent from "./containers/Events/NewEvent";
 
 
 function App() {
@@ -30,7 +31,12 @@ function App() {
     .then(() => setStatus(true))
     .then(console.log(events));
   },[])
-  // const EventsContext = React.createContext(null);
+  console.log(events)
+
+  const createEvent = (body) => {
+    EventsApiService.createEvent(body)
+      .then(event => setEvents([...events, event ]))
+  }
 
   return (
     <div className="App">
@@ -39,7 +45,7 @@ function App() {
         <Spinner />
         :
         <main>
-          <NavBar />
+          <NavBar isAuthenticated={isAuthenticated} />
           <Switch>
             <Route path='/' exact component={Home}/>
             <Route
@@ -61,11 +67,15 @@ function App() {
                 <Logout {...props} setIsAuthenticated={setIsAuthenticated} />
               )}
             />
-            <EventsContext.Provider value={events}>
+            <Route path='/new-event' render={() => (
+              <NewEvent createEvent={createEvent} />
+            )}/>
+            <EventsContext.Provider value={'hello'}>
               <Route path='/events/:id' component={EventDetails}/>
               {/* <Route path='/events/:id' render={() => (
                 <EventDetails value={events} />
               )}/> */}
+              {/* <Route path='/events' exact component={Events}/> */}
               <Route path='/events' exact render={() => (
                 <Events value={events} />
               )}/>

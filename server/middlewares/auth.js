@@ -5,6 +5,7 @@ const authMiddleware = async (req, res, next) => {
 
   try {
     const { uid } = req.session;
+    console.log('USER ID:', uid);
     const user = await User.findOne({ _id: uid });
     if (!user) throw new Error();
     req.user = user;

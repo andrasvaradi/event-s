@@ -12,29 +12,37 @@ import { Link as RouterLink } from 'react-router-dom';
 
 
 export default function Logout(props) {
-  const handleClick = () => {
+ 
+  const logout = () => {
     UsersApiService.logout();
-    handleAuth();
-  };
-
-  const handleAuth = () => {
     props.setIsAuthenticated(false);
     auth.logout(() => props.history.push('/'));
   };
+  // const handleClick = () => {
+  //   UsersApiService.logout();
+  //   handleAuth();
+  // };
 
-  return (
-    <Flex minH={'100vh'} align={'center'} justify={'center'} bg={'gray.50'} flexDirection={'column'}>
-      <Text>Logout</Text>
-      <Button
-        bg={'gray.300'}
-        color={'white'}
-        _hover={{
-          bg: 'gray.500',
-        }}
-        onClick={handleClick}
-      >
-        Log out
-      </Button>
-    </Flex>
-  )
+  // const handleAuth = () => {
+  //   props.setIsAuthenticated(false);
+  //   auth.logout(() => props.history.push('/'));
+  // };
+
+  // return (
+  //   <Flex minH={'100vh'} align={'center'} justify={'center'} bg={'gray.50'} flexDirection={'column'}>
+  //     <Text>Logout</Text>
+  //     <Button
+  //       bg={'gray.300'}
+  //       color={'white'}
+  //       _hover={{
+  //         bg: 'gray.500',
+  //       }}
+  //       onClick={handleClick}
+  //     >
+  //       Log out
+  //     </Button>
+  //   </Flex>
+  // )
+  logout()
+  return (<></>)
 }

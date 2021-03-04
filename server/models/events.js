@@ -23,10 +23,13 @@ const eventSchema = new Schema({
     type: String,
   },
   type: {
-    type: String,
+    type: String, required: true
   },
   description: {
     type: String,
+  },
+  owner: {
+    type: String, required: true,
   },
 });
 

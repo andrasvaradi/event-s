@@ -2,6 +2,7 @@ import React from 'react';
 import EventCard from './EventCard';
 import { Wrap } from "@chakra-ui/react"
 
+
 export default function EventList ({value}) {
   // console.log(value)
   return (

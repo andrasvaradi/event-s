@@ -16,7 +16,17 @@ import {
   Stack,
   Image,
   Spacer,
-  Text
+  Text,
+  PopoverContent,
+  PopoverTrigger,
+  PopoverCloseButton,
+  Popover,
+  PopoverBody,
+  PopoverHeader,
+  Portal,
+  PopoverArrow,
+  ButtonGroup
+
 } from '@chakra-ui/react';
 import { Link as RouterLink } from "react-router-dom"
 const Links = ['Home', 'Events'];
@@ -27,16 +37,16 @@ const NavigationLink = ({ children, to }) => (
     py={1}
     rounded={'md'}
     _hover={{ textDecoration: 'none', bg: 'gray.200' }}
-    // href={to}
-    // to={to}
-    >
+  // href={to}
+  // to={to}
+  >
     {children}
   </Text>
 );
 
-export default function NavigationBar() {
+export default function NavigationBar({ isAuthenticated }) {
   const { isOpen } = useDisclosure();
-
+  console.log(isAuthenticated)
   return (
     <>
       <Box
@@ -52,7 +62,7 @@ export default function NavigationBar() {
             onClick={isOpen ? onClose : onOpen}
           /> */}
           <RouterLink to="/">
-            <Image src={'logo-black.png'}  w={'75px'} alt=""></Image>
+            <Image src={'logo-black.png'} w={'75px'} alt=""></Image>
           </RouterLink>
           {/* <Box >
               <Image src={'EVENT-S.png'} boxSize="50px" alt=""></Image>
@@ -62,7 +72,7 @@ export default function NavigationBar() {
             <HStack
               as={'nav'}
               spacing={4}
-              display={{ base: 'none', md: 'flex'}}>
+              display={{ base: 'none', md: 'flex' }}>
               <RouterLink to="/">
                 <NavigationLink key="Home">Home</NavigationLink>
               </RouterLink>
@@ -92,25 +102,71 @@ export default function NavigationBar() {
                 cursor={'pointer'}>
                 <Avatar
                   size={'sm'}
-                  // src={}
+                // src={}
                 />
               </MenuButton>
               <MenuList>
+                  {
+                    isAuthenticated ?
+                    // <MenuList>
+                    <>
+                    <RouterLink to="/events">
+                      <MenuItem>My events</MenuItem>
+                    </RouterLink >
+                    <RouterLink to="/new-event">
+                      <MenuItem>New event</MenuItem>
+                    </RouterLink >
+                    <RouterLink to="/profile">
+                      <MenuItem>Profile</MenuItem>
+                    </RouterLink >
+                    <MenuDivider />
+                      <Popover>
+                        <PopoverTrigger>
+                          <Button w={'100%'} >Logout</Button>
+                        </PopoverTrigger>
+                        <Portal>
+                          <PopoverContent>
+                            <PopoverArrow />
+                            <PopoverHeader>Are you sure?</PopoverHeader>
+                            <PopoverCloseButton />
+                            <PopoverBody>
+                              {/* <Button colorScheme="gray.600">Button</Button> */}
+                              <ButtonGroup size="sm">
+                                  <Button variant="outline">No</Button>
+                                  <RouterLink to="/logout">
+                                  <Button colorScheme="red">Yes</Button>
+                                  </RouterLink>
+                                </ButtonGroup>
+                            </PopoverBody>
+                          </PopoverContent>
+                        </Portal>
+                      </Popover>
+                      {/* <MenuItem>Logout</MenuItem> */}
+                    </>
+                    :
+                    <RouterLink to="/login">
+                      <MenuItem>Sign In</MenuItem>
+                    </RouterLink>
+                  }
+              </MenuList>
+              {/* <MenuList>
+                <RouterLink to="/events">
                   <MenuItem>My events</MenuItem>
-                <RouterLink to="/create-event">
+                </RouterLink >
+                <RouterLink to="/new-event">
                   <MenuItem>New event</MenuItem>
                 </RouterLink >
                 <RouterLink to="/profile">
                   <MenuItem>Profile</MenuItem>
                 </RouterLink >
                 <MenuDivider />
-                <RouterLink to="/login">
-                  <MenuItem>Sign In</MenuItem>
-                </RouterLink>
                 <RouterLink to="/logout">
                   <MenuItem>Logout</MenuItem>
                 </RouterLink>
-              </MenuList>
+                <RouterLink to="/login">
+                  <MenuItem>Sign In</MenuItem>
+                </RouterLink>
+              </MenuList> */}
             </Menu>
           </Flex>
         </Flex>

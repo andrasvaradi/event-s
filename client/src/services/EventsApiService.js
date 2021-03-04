@@ -10,6 +10,8 @@ function getSingleEvent (id) {
 function createEvent (body) {
   return fetchRequest('/events', {
     method: 'POST',
+    credentials: 'include',
+    mode: 'cors',
     headers: {
       'Content-Type': 'application/json',
     },

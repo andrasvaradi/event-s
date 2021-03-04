@@ -7,7 +7,8 @@ import {
   Text,
 } from '@chakra-ui/react';
 import { Link as RouterLink } from 'react-router-dom';
-
+import EventList from '../Event/EventList';
+import Spinner from '../Handling/Spinner';
 
 const initialState = {
   firstName: '',
@@ -15,7 +16,7 @@ const initialState = {
   host: null,
   about: '',
   location: '',
-  events: null
+  events: []
 };
 export default function Profile() {
   const [state, setState] = useState(initialState);
@@ -44,8 +45,16 @@ export default function Profile() {
 
 
   return (
-    <Flex minH={'100vh'} align={'center'} justify={'center'} bg={'gray.50'}>
-      <Text>Hello {state.firstName} {state.lastName} , you are a {state.host ? 'host' : 'guest'}</Text>
+    <Flex minH={'100vh'} align={'center'} bg={'gray.50'} justify={'center'} flexDirection={'column'}>
+      <Text>Hello {state.firstName} {state.lastName}</Text>
+      <Text>You are a {state.host ? 'host' : 'guest'}</Text>
+      <Text>Your events: {state.events.length ? state.events.length : 0}</Text>
+      {
+        state.events.length ?
+        <EventList value={state.events} />
+        : 
+        <Text>You haven't got any events yet.</Text>
+      }
     </Flex>
   )
 }
