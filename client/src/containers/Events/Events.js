@@ -1,7 +1,7 @@
 import React from 'react'
 import { Box, Flex } from '@chakra-ui/react';
 import EventList from '../../components/Event/EventList'
-// import SearchBar from '../SearchBar/SearchBar';
+import SearchBar from '../SearchBar'
 
 
 export default function Events ({ value }) {
@@ -9,10 +9,9 @@ export default function Events ({ value }) {
 
   return (
     <Box minH={'100vh'} >
-      {/* <SearchBar /> */}
+      <SearchBar /> 
       <Flex>
         <EventList value={events} />
-
       </Flex>
     </Box>
   )

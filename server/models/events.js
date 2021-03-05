@@ -31,6 +31,9 @@ const eventSchema = new Schema({
   owner: {
     type: String, required: true,
   },
+  list: [{
+    type: Schema.Types.ObjectId, ref: 'Users',
+  }],
 });
 
 module.exports = model('Events', eventSchema);

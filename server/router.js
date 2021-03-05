@@ -8,6 +8,7 @@ router.get('/events/:id', Events.getSingleEvent);
 router.post('/events', authMiddleware, Events.postEvent);
 router.delete('/events/:id', Events.deleteEvent);
 router.put('/events/:id', Events.updateEvent);
+router.post('/events/:id', authMiddleware, Events.attendEvent);
 
 
 router.post('/register', Users.create);

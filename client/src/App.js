@@ -75,7 +75,7 @@ function App() {
                 <Events value={events} />
               )}/>
               <Route path='/events/:id' render={() => (
-                <EventDetails  events={events}/>
+                <EventDetails  events={events} user={user}/>
               )}/>
             <Route component={Error} />
           </Switch>

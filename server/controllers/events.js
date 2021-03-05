@@ -30,11 +30,9 @@ exports.postEvent = async (req,res) => {
     // if (!req.user.host) throw Error;
     const { _id } = req.user;
     const newEvent = {...req.body, owner: _id};
-    console.log(newEvent);
     const events = await Events.create(newEvent);
-    console.log(events);
     const addToUser = await Users.findByIdAndUpdate(_id, { $push: { eventList: events._id}},{new:true});
-    console.log(addToUser);
+    // console.log(addToUser);
     res.status(201);
     res.send(events);
   } catch (O_O) {
@@ -58,6 +56,7 @@ exports.deleteEvent = async (req,res) => {
 };
 
 exports.updateEvent = async (req,res) => {
+  
   try {
     const { id } = req.params;
     const event = await Events.findByIdAndUpdate(
@@ -70,5 +69,20 @@ exports.updateEvent = async (req,res) => {
     console.error('UPDATE EVENT: ',error);
     res.status(500);
     res.send(error);
+  }
+};
+
+
+exports.attendEvent = async (req,res) => {
+  try {
+    const { _id } = req.user;
+    console.log('LOGGING THIS', _id );
+    const { id } = req.params;
+    const addToEvent = await Users.findByIdAndUpdate(id, { $push: { listist: _id}},{new:true});
+    const addToUser = await Users.findByIdAndUpdate(_id, { $push: { eventList: id}},{new:true});
+    res.status(201);
+    res.send(addToEvent);
+  } catch (error) {
+    res.status(404).send({ error, message: 'Could not assign user to event' });
   }
 };

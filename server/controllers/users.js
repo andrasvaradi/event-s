@@ -46,10 +46,10 @@ const profile = async (req, res) => {
 
   try {
     const populatedUser = await (await User.findOne({ _id: req.user._id}).populate('eventList'));
-    console.log(populatedUser);
+    // console.log(populatedUser);
     const { _id, firstName, lastName, host, photos, about, location, eventList } = populatedUser;
     const user = { _id, firstName, lastName, host, photos, about, location, eventList };
-    console.log(user);
+    // console.log(user);
     res.status(200).send(user);
   } catch (error) {
     res.status(404).send({ error, message: 'User not found' });
@@ -69,6 +69,7 @@ const logout = (req, res) => {
     }
   });
 };
+// Dev only
 const getUsers = async (req,res) => {
   try {
     const users = await User.find();

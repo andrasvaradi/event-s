@@ -20,6 +20,19 @@ function createEvent (body) {
   )
 }
 
+function signUp (id) {
+  return fetchRequest('/events/' + id, {
+    method: 'POST',
+    credentials: 'include',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(id)
+    }
+  )
+}
+
 function fetchRequest (path, options) {
   return fetch(URL + path, options)
     .then(res => res.status <= 400 ? res: Promise.reject())
@@ -29,4 +42,4 @@ function fetchRequest (path, options) {
     })
 }
 
-export default { getEvents, getSingleEvent, createEvent };
+export default { getEvents, getSingleEvent, createEvent, signUp };
