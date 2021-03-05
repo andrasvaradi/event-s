@@ -43,6 +43,7 @@ export default function Logout(props) {
   //     </Button>
   //   </Flex>
   // )
-  logout()
-  return (<></>)
+  
+  return logout()
+  // return (<></>)
 }

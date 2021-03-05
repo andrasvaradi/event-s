@@ -19,7 +19,7 @@ const initialState = {
   events: []
 };
 export default function Profile({user, setUser}) {
-  function reroute() {}
+
   useEffect(() => {
     const getProfile = async () => {
       const userInfo = await UsersApiService.profile();

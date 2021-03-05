@@ -2,6 +2,7 @@
 import './App.css';
 import React, { useEffect, useState} from 'react';
 import EventsApiService from './services/EventsApiService';
+import UsersApiService from './services/UsersApiService';
 import Spinner from "./components/Handling/Spinner";
 import { Route, Switch } from 'react-router-dom';
 import Home from './components/Home';
@@ -34,7 +35,33 @@ function App() {
     EventsApiService.createEvent(body)
       .then(event => setEvents([...events, event ]))
   }
-
+  const signUpDown = (dir, id) => {
+    if (dir === 'up') {
+      EventsApiService.signUp(id)
+      .then(updated => setEvents((events)=> {
+        const index = events.findIndex(event => event._id === updated._id)
+        const copy = [...events]
+        copy.splice(index, 1, updated)
+        return copy;
+       }))
+       .then(() => updateUser())
+      .then(console.log(user))
+    } else {
+      EventsApiService.signDown(id)
+      .then(updated => setEvents((events)=> {
+        const index = events.findIndex(event => event._id === updated._id)
+        const copy = [...events]
+        copy.splice(index, 1, updated)
+        return copy;
+       }))
+      .then(() => updateUser())
+      .then(console.log(user))
+    }
+  }
+   function updateUser () {
+      UsersApiService.profile()
+      .then(updated => setUser(updated))
+  }
   return (
     <div className="App">
       {
@@ -75,7 +102,7 @@ function App() {
                 <Events value={events} />
               )}/>
               <Route path='/events/:id' render={() => (
-                <EventDetails  events={events} user={user}/>
+                <EventDetails  events={events} signUpDown={signUpDown} user={user}/>
               )}/>
             <Route component={Error} />
           </Switch>

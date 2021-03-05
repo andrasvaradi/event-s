@@ -75,13 +75,24 @@ exports.updateEvent = async (req,res) => {
 
 exports.attendEvent = async (req,res) => {
   try {
-    const { _id } = req.user;
-    console.log('LOGGING THIS', _id );
     const { id } = req.params;
-    const addToEvent = await Users.findByIdAndUpdate(id, { $push: { listist: _id}},{new:true});
+    const { _id } = req.user;
+    const addToEvent = await Events.findByIdAndUpdate(id, { $push: { list: _id}, $inc: { attendees: 1 }},{new:true});
     const addToUser = await Users.findByIdAndUpdate(_id, { $push: { eventList: id}},{new:true});
     res.status(201);
     res.send(addToEvent);
+  } catch (error) {
+    res.status(404).send({ error, message: 'Could not assign user to event' });
+  }
+};
+exports.unattendEvent = async (req,res) => {
+  try {
+    const { id } = req.params;
+    const { _id } = req.user;
+    const deleteFromEvent = await Events.findByIdAndUpdate(id, { $pull: { list: _id}, $inc: { attendees: -1}},{new:true});
+    const deleteFromUser = await Users.findByIdAndUpdate(_id, { $pull: { eventList: id}},{new:true});
+    res.status(201);
+    res.send(deleteFromEvent);
   } catch (error) {
     res.status(404).send({ error, message: 'Could not assign user to event' });
   }

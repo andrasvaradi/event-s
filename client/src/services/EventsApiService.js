@@ -21,16 +21,26 @@ function createEvent (body) {
 }
 
 function signUp (id) {
-  return fetchRequest('/events/' + id, {
+
+  return fetch(`${URL}/events/${id}/up`, {
     method: 'POST',
     credentials: 'include',
     mode: 'cors',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(id)
-    }
-  )
+    headers: { 'Content-Type': 'application/json' },
+ 
+  })
+    .then((res) => res.json())
+    .catch((err) => console.log(err));
+}
+function signDown (id) {
+  return fetch(`${URL}/events/${id}/down`, {
+    method: 'POST',
+    credentials: 'include',
+    mode: 'cors',
+    headers: { 'Content-Type': 'application/json' },
+  })
+    .then((res) => res.json())
+    .catch((err) => console.log(err));
 }
 
 function fetchRequest (path, options) {
@@ -42,4 +52,4 @@ function fetchRequest (path, options) {
     })
 }
 
-export default { getEvents, getSingleEvent, createEvent, signUp };
+export default { getEvents, getSingleEvent, createEvent, signUp, signDown };

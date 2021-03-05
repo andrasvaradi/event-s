@@ -4,15 +4,16 @@ import { Box, Flex,Text } from '@chakra-ui/react';
 
 
 export default function MyEvents ({user}) {
-
+  console.log('My events: ', user)
   return (
     <Box minH={'100vh'} >
       {/* <SearchBar /> */}
       <Flex>
+        <Text>Hello</Text>
         {/* <EventList value={events} /> */}
-        {
+        {/* {
           user.eventList &&
-          <Text>{user.eventList[0].limit}</Text>}
+          <Text>{user.eventList[0].limit}</Text>} */}
       </Flex>
     </Box>
   )

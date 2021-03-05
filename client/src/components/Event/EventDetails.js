@@ -1,28 +1,43 @@
 import React from 'react'
 import { useParams } from 'react-router-dom';
 import Spinner from '../Handling/Spinner'
-import {
-  Flex, Stack, Text, Button, Popover, PopoverTrigger, Portal, PopoverContent,
-  PopoverArrow, PopoverHeader, PopoverCloseButton, PopoverBody, ButtonGroup,
-} from '@chakra-ui/react';
-import EventsApiService from '../../services/EventsApiService';
+import { Flex, Stack, Text,} from '@chakra-ui/react';
+import Attend from './Buttons/Attend';
+import Unattend from './Buttons/Unattend';
+import { Link as RouterLink } from 'react-router-dom';
 
 
-export default function EventDetails ({events,user}) {
 
+export default function EventDetails ({events, signUpDown,user}) {
+  console.log('Eventdetail', user)
   let { id } = useParams();
+
   const event = events.find(el => el._id === id)
-  let signedUp = user.eventList.find(el => el._id === id);
-  const handleSubmit = async (e) => {
+
+  const handleSubmit = (e) => {
     e.preventDefault()
-    console.log(id)
-    const res = await EventsApiService.signUp(id);
-    if (res.error) {
-      alert(`${res.message}`);
-    }
+    signUpDown('up', id);
   };
+  const unattend = (e) => {
+    e.preventDefault()
+    signUpDown('down', id);
+  };
+  // console.log('Eventdetails:', event)
+  function renderButton () {
+    // console.log(user)
+    if (!user.eventList.some(el => el._id === id)) {
+      console.log('why!!!!')
+      return (
+        <Attend handleSubmit={handleSubmit} />
+      )
+    } else {
+      return (
+        <Unattend unattend={unattend}/>
+      )
+    }
+  }
 
-
+  // const isit = !user.eventList.some(el => el._id === id)
   return (
     <Flex minH={'100vh'} align={'center'} justify={'center'} bg={'gray.50'}>
     {
@@ -38,49 +53,29 @@ export default function EventDetails ({events,user}) {
       <Text>{event.description}</Text>
       <Text>{event.duration}</Text>
       <Text>{event.date}</Text>
-      <Text>{event.attendees}</Text>
+      <Text>Amount of people: {event.attendees}</Text>
+      <Text>{event.photo}</Text>
       <Text>{event.photo}</Text>
       <Stack spacing={4}>
       {
-        !signedUp ?
-      (<Popover>
-        <PopoverTrigger>
-          <Button w={'100%'} >Attend</Button>
-        </PopoverTrigger>
-        <Portal>
-          <PopoverContent>
-            <PopoverArrow />
-            <PopoverHeader>Please confirm!</PopoverHeader>
-            <PopoverCloseButton />
-            <PopoverBody>
-              <ButtonGroup size="sm">
-                  <Button variant="outline">Cancel</Button>
-                  <Button onClick={handleSubmit} colorScheme="gray">Attend</Button>
-                </ButtonGroup>
-            </PopoverBody>
-          </PopoverContent>
-        </Portal>
-      </Popover>)
-        : (<Popover>
-          <PopoverTrigger>
-            <Button w={'100%'} >Unattend</Button>
-          </PopoverTrigger>
-          <Portal>
-            <PopoverContent>
-              <PopoverArrow />
-              <PopoverHeader>Please confirm!</PopoverHeader>
-              <PopoverCloseButton />
-              <PopoverBody>
-                <ButtonGroup size="sm">
-                    <Button variant="outline">Cancel</Button>
-                    <Button onClick={handleSubmit} colorScheme="gray">Unattend</Button>
-                  </ButtonGroup>
-              </PopoverBody>
-            </PopoverContent>
-          </Portal>
-        </Popover>)
+        !Object.keys(user).length ?
+        console.log('not logged in') :
+        (
+            !user.eventList.some(el => el._id === id) ? (
 
+                <Attend handleSubmit={handleSubmit} />
+
+            ) : (
+              <Unattend unattend={unattend}/>
+            )
+
+        )
       }
+      {/* {
+        !Object.keys(user).length ?
+        console.log('not loggen in') :
+        renderButton()
+      } */}
       </Stack>
     </Stack>
     }

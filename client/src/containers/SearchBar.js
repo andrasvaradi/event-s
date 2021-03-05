@@ -6,18 +6,42 @@ import {
   FormControl,
   Input,
   Button,
-  Spacer
+  Spacer,
+  Accordion,
+  AccordionItem,
+  AccordionButton,
+  AccordionPanel,
+  AccordionIcon,
+  Text,
+  Checkbox, CheckboxGroup , HStack
 } from '@chakra-ui/react';
 
-export default function NewEvent({ createEvent }) {
-  const [search, setSearch] = useState('')
+export default function SearchBar({ events, setFilteredEvents }) {
+  const [searchTerm, setSearchTerm] = useState("");
+  const [checkBoxes, setCheckboxes] = useState([])
+  const handleChange = event => {
+    setSearchTerm(event.target.value);
+  };
 
-  let handleInputChange = (e) => {
-    setSearch(e.target.value)
-    console.log(search)
+  React.useEffect(() => {
+    const results = events.filter(event =>
+      event.name.includes(searchTerm) | event.description.includes(searchTerm)
+      );
+    setFilteredEvents(results);
+    }, [searchTerm]);
+
+  let checkbox = []
+  let handleCheckboxChange = (e) => {
+    console.log(e.target.value)
+    let selectedCheckboxes = [...checkBoxes];
+    console.log(selectedCheckboxes)
+    if (!checkBoxes.includes(e.target.value)){
+      selectedCheckboxes.push(e.target.value)
+  } else {
+    selectedCheckboxes.splice(selectedCheckboxes.indexOf(e.target.value), 1)
   }
-  function handleSubmit() {
-
+  setCheckboxes(selectedCheckboxes)
+  console.log(checkBoxes)
   }
 
   return (
@@ -28,17 +52,16 @@ export default function NewEvent({ createEvent }) {
             <Input
               id="search"
               placeholder="Search for events"
-              value={search}
+              value={searchTerm}
               name="search"
-              onChange={handleInputChange}
+              onChange={handleChange}
               bg={'white'}
               w={'100%'}
             />
           </FormControl>
-          <Button m={4} >Filter</Button>
-          <Button m={4} onClick={handleSubmit}>Search</Button>
-        </Flex>
-      </FormControl>
-    </Box>
+          {/* <Button m={4} >Search</Button> */}
+          </Flex>
+        </FormControl>
+      </Box>
   )
 }

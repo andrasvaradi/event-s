@@ -43,7 +43,7 @@ const login = async (req, res) => {
 };
 
 const profile = async (req, res) => {
-
+  console.log('Getting');
   try {
     const populatedUser = await (await User.findOne({ _id: req.user._id}).populate('eventList'));
     // console.log(populatedUser);
