@@ -30,19 +30,18 @@ export default function SearchBar({ events, setFilteredEvents }) {
     setFilteredEvents(results);
     }, [searchTerm]);
 
-  let checkbox = []
-  let handleCheckboxChange = (e) => {
-    console.log(e.target.value)
-    let selectedCheckboxes = [...checkBoxes];
-    console.log(selectedCheckboxes)
-    if (!checkBoxes.includes(e.target.value)){
-      selectedCheckboxes.push(e.target.value)
-  } else {
-    selectedCheckboxes.splice(selectedCheckboxes.indexOf(e.target.value), 1)
-  }
-  setCheckboxes(selectedCheckboxes)
-  console.log(checkBoxes)
-  }
+  // let handleCheckboxChange = (e) => {
+  //   console.log(e.target.value)
+  //   let selectedCheckboxes = [...checkBoxes];
+  //   console.log(selectedCheckboxes)
+  //   if (!checkBoxes.includes(e.target.value)){
+  //     selectedCheckboxes.push(e.target.value)
+  // } else {
+  //   selectedCheckboxes.splice(selectedCheckboxes.indexOf(e.target.value), 1)
+  // }
+  // setCheckboxes(selectedCheckboxes)
+  // console.log(checkBoxes)
+  // }
 
   return (
     <Box bg={'gray.300'} >

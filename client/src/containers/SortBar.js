@@ -25,6 +25,7 @@ export default function SortBar({ events, setFilteredEvents }) {
     setFilteredEvents(results);
     }, [checkBoxes]);
 
+    // .sort((a,b) => a.date > b.date ? 1 : -1)
 
   let handleCheckboxChange = (e) => {
     console.log(e.target.value)

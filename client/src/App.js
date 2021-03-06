@@ -18,6 +18,7 @@ import EventDetails from './components/Event/EventDetails';
 import NewEvent from "./containers/events/NewEvent";
 import MyEvents from './containers/events/MyEvents';
 
+
 function App() {
   const [status, setStatus] = useState(false);
   const [events, setEvents] = useState([])
