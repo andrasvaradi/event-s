@@ -131,7 +131,7 @@ export default function NewEvent({createEvent, user}) {
               clampValueOnBlur={false}
               allowMouseWheel
             >
-              <NumberInputField 
+              <NumberInputField
                 value={event.duration}
                 name="duration"
                 onChange={handleInputChange}

@@ -3,12 +3,10 @@ import {
   Button, Popover, PopoverTrigger, Portal, PopoverContent,
   PopoverArrow, PopoverHeader, PopoverCloseButton, PopoverBody, ButtonGroup,
 } from '@chakra-ui/react';
-import { Link as RouterLink } from 'react-router-dom';
 
 export default function Unattend ({unattend}) {
 
   return (
-    // <RouterLink to='/my-events'>
       <Popover>
         <PopoverTrigger>
           <Button w={'100%'} >Unattend</Button>
@@ -27,6 +25,5 @@ export default function Unattend ({unattend}) {
           </PopoverContent>
         </Portal>
       </Popover>
-    // </RouterLink>
   )
 }

@@ -14,7 +14,7 @@ function EventCard ({value}) {
               <Flex flexDirection="column" justifyContent="center" alignItems="center">
                 <Image borderRadius="md" src={value.photo} alt="" />
                 <Text size="2xl">{value.name}</Text>
-                <Text>{value.description}</Text>
+                <Text>{value.description.slice(0,60)}...</Text>
                 <Text>{value.location}</Text>
                 <Text>{value.date.slice(0,10)}</Text>
               </Flex>

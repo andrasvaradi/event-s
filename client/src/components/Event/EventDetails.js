@@ -22,22 +22,8 @@ export default function EventDetails ({events, signUpDown,user}) {
     e.preventDefault()
     signUpDown('down', id);
   };
-  // console.log('Eventdetails:', event)
-  function renderButton () {
-    // console.log(user)
-    if (!user.eventList.some(el => el._id === id)) {
-      console.log('why!!!!')
-      return (
-        <Attend handleSubmit={handleSubmit} />
-      )
-    } else {
-      return (
-        <Unattend unattend={unattend}/>
-      )
-    }
-  }
 
-  // const isit = !user.eventList.some(el => el._id === id)
+
   return (
     <Flex minH={'100vh'} align={'center'} justify={'center'} bg={'gray.50'}>
     {
@@ -55,7 +41,7 @@ export default function EventDetails ({events, signUpDown,user}) {
       <Text>{event.date}</Text>
       <Text>Amount of people: {event.attendees}</Text>
       <Text>{event.photo}</Text>
-      <Text>{event.photo}</Text>
+      <Text>{event.owner}</Text>
       <Stack spacing={4}>
       {
         !Object.keys(user).length ?
@@ -71,11 +57,6 @@ export default function EventDetails ({events, signUpDown,user}) {
 
         )
       }
-      {/* {
-        !Object.keys(user).length ?
-        console.log('not loggen in') :
-        renderButton()
-      } */}
       </Stack>
     </Stack>
     }

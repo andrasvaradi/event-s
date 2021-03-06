@@ -3,41 +3,29 @@ import {
   Flex,
   Box,
   FormControl,
-  Input,
-  Button,
-  Spacer,
   Accordion,
   AccordionItem,
   AccordionButton,
   AccordionPanel,
-  AccordionIcon,
   Text,
   Checkbox, CheckboxGroup , HStack
 } from '@chakra-ui/react';
 
-export default function SortBar({ events, setFilteredEvents }) {
-  const [checkBoxes, setCheckboxes] = useState([])
+const listOfTypes = [
+  'Food','Music','Sport','Leisure','Outdoor','Other',
+]
 
-  React.useEffect(() => {
-    const results = events.filter(event =>
-      checkBoxes.includes(event.type)
-      );
-    setFilteredEvents(results);
-    }, [checkBoxes]);
-
-    // .sort((a,b) => a.date > b.date ? 1 : -1)
+export default function SortBar({ checkBoxes, setCheckboxes }) {
 
   let handleCheckboxChange = (e) => {
-    console.log(e.target.value)
+
     let selectedCheckboxes = [...checkBoxes];
-    console.log(selectedCheckboxes)
     if (!checkBoxes.includes(e.target.value)){
       selectedCheckboxes.push(e.target.value)
-  } else {
+    } else {
     selectedCheckboxes.splice(selectedCheckboxes.indexOf(e.target.value), 1)
-  }
-  setCheckboxes(selectedCheckboxes)
-  console.log(checkBoxes)
+    }
+    setCheckboxes(selectedCheckboxes)
   }
 
   return (
@@ -51,16 +39,15 @@ export default function SortBar({ events, setFilteredEvents }) {
                   <Box flex="1" textAlign="left">
                     Filter
                   </Box>
-                  {/* <AccordionIcon /> */}
                 </AccordionButton>
               </h2>
               <AccordionPanel pb={4}>
               <CheckboxGroup colorScheme="green" >
                 <Text>Type:</Text>
                 <HStack>
-                  <Checkbox onClick={handleCheckboxChange} value="Food">Food</Checkbox>
-                  <Checkbox onClick={handleCheckboxChange} value="Music">Music</Checkbox>
-                  <Checkbox onClick={handleCheckboxChange} value="Other">Other</Checkbox>
+                {
+                  listOfTypes.map(el => <Checkbox onChange={handleCheckboxChange} key={el} value={el}>{el}</Checkbox> )
+                }
                 </HStack>
               </CheckboxGroup>
               </AccordionPanel>

@@ -17,6 +17,7 @@ router.post('/login', Users.login);
 router.get('/me', authMiddleware, Users.profile);
 router.post('/logout', authMiddleware, Users.logout);
 
+
 //DEV
 router.get('/users', Users.getUsers);
 router.delete('/users/:id', Users.deleteUser);

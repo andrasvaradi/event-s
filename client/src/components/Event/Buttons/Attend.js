@@ -3,12 +3,11 @@ import {
   Button, Popover, PopoverTrigger, Portal, PopoverContent,
   PopoverArrow, PopoverHeader, PopoverCloseButton, PopoverBody, ButtonGroup,
 } from '@chakra-ui/react';
-import { Link as RouterLink } from 'react-router-dom';
+
 
 export default function Attend ({handleSubmit}) {
 
   return (
-    // <RouterLink to='/my-events'>
       <Popover>
         <PopoverTrigger>
           <Button w={'100%'}>Attend</Button>
@@ -27,6 +26,5 @@ export default function Attend ({handleSubmit}) {
           </PopoverContent>
         </Portal>
       </Popover>
-    // </RouterLink>
   )
 }
