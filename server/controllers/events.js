@@ -105,21 +105,3 @@ exports.unattendEvent = async (req,res) => {
     res.status(404).send({ error, message: 'Could not assign user to event' });
   }
 };
-
-
-function fetchGeoLocation (postcode) {
-  console.log('HELLO')
-  console.log(postcode)
-  return axios.get(`http://api.postcodes.io/postcodes/${postcode}`);
-}
-
-exports.test = async (req,res) => {
-  try {
-    const { postcode } = req.params;
-    const result = await fetchGeoLocation(postcode);
-    console.log(result)
-    res.send(result.data)
-  } catch (error) {
-    res.send(error)
-  }
-}
