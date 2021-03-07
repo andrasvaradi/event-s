@@ -31,11 +31,11 @@ export default function SortBar({ checkBoxes, setCheckboxes }) {
   return (
     <Box bg={'gray.300'} >
       <FormControl>
-        <Flex >
+        <Flex>
           <Accordion allowMultiple >
-            <AccordionItem>
+            <AccordionItem >
               <h2>
-                <AccordionButton>
+                <AccordionButton bg={'gray.300'}>
                   <Box flex="1" textAlign="left">
                     Filter
                   </Box>

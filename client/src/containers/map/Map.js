@@ -8,6 +8,7 @@ mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
 
 
 export default function Map ({ filteredEvents }) {
+
   const mapContainer = useRef(null);
   const [lng, setLng] = useState(-0.1);
   const [lat, setLat] = useState(51.5);

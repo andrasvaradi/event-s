@@ -23,7 +23,6 @@ export default function Profile({user, setUser}) {
   useEffect(() => {
     const getProfile = async () => {
       const userInfo = await UsersApiService.profile();
-      console.log(userInfo)
       if (userInfo) {
         setUser(userInfo)
       } else {

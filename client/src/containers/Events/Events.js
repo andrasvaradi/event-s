@@ -16,7 +16,7 @@ export default function Events({ value }) {
     if (!searchTerm && checkBoxes.length) return check()
     const events = checkBoxes.length ? filteredEvents : value
     const search = events.filter(event =>
-      event.name.includes(searchTerm) || event.description.includes(searchTerm)
+      event.name.toLowerCase().includes(searchTerm) || event.description.toLowerCase().includes(searchTerm)
     );
     setFilteredEvents(search);
   }
@@ -69,20 +69,23 @@ export default function Events({ value }) {
         (<Spinner />)
         : (
         <>
-        <Wrap w={'100%'} bg={'gray.300'}>
+        <Wrap w={'100%'} bg={'gray.300'} p={4} >
           <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+          <Button marginRight={4} onClick={toggle}>Map</Button>
           <SortBar checkBoxes={checkBoxes} setCheckboxes={setCheckboxes} />
-          <Button onClick={toggle}>Map</Button>
         </Wrap>
         <Box h={"10px"}></Box>
-        <Flex justifyContent={"space-evenly"}>
+        <Wrap m={5}>
           {
             displayMap ? <Map filteredEvents={filteredEvents}/>
             : null
           }
-          {/* <Map filteredEvents={filteredEvents}/> */}
-          <EventList value={filteredEvents} />
-        </Flex>
+
+            <EventList value={filteredEvents} />
+          <Flex justifyContent={"space-evenly"}>
+            {/* <Map filteredEvents={filteredEvents}/> */}
+          </Flex>
+        </Wrap>
         </>
         )
       }

@@ -19,6 +19,7 @@ router.post('/logout', authMiddleware, Users.logout);
 
 //DEV
 router.get('/users', Users.getUsers);
+router.get('/users/:id', Users.getHostDetails);
 router.delete('/users/:id', Users.deleteUser);
 
 

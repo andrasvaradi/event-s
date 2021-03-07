@@ -45,7 +45,7 @@ const login = async (req, res) => {
 const profile = async (req, res) => {
   console.log('Getting');
   try {
-    const populatedUser = await (await User.findOne({ _id: req.user._id}).populate('eventList'));
+    const populatedUser = await User.findOne({ _id: req.user._id}).populate('eventList');
     // console.log(populatedUser);
     const { _id, firstName, lastName, host, photos, about, location, eventList } = populatedUser;
     const user = { _id, firstName, lastName, host, photos, about, location, eventList };
@@ -69,6 +69,25 @@ const logout = (req, res) => {
     }
   });
 };
+
+
+const getHostDetails = async (req,res) => {
+  try {
+    const { id } = req.params;
+    console.log(id);
+    const populatedUser = await User.findOne({ _id: id}).populate('eventList');
+    const { _id, firstName, lastName, host, photos, about, location, eventList } = populatedUser;
+    const user = { _id, firstName, lastName, host, photos, about, location, eventList };
+    res.status(200);
+    res.send(user);
+  } catch (O_O) {
+    console.error('SINGLE HOST: ',O_O);
+    res.status(500);
+    res.send(O_O);
+  }
+};
+
+
 // Dev only
 const getUsers = async (req,res) => {
   try {
@@ -76,7 +95,7 @@ const getUsers = async (req,res) => {
     res.status(200);
     res.send(users);
   } catch (O_O) {
-    console.error('GET USERS: ',error);
+    console.error('GET USERS: ',O_O);
     res.status(500);
     res.send(O_O);
   }
@@ -95,4 +114,4 @@ const deleteUser = async (req,res) => {
 };
 
 
-module.exports = { create, login, profile, logout, getUsers, deleteUser };
+module.exports = { create, login, profile, logout, getUsers, deleteUser, getHostDetails };

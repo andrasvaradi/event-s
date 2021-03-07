@@ -1,6 +1,7 @@
 import React from 'react'
 import { Box, Flex,Text } from '@chakra-ui/react';
 // import SearchBar from '../SearchBar/SearchBar';
+import EventList from '../../components/Event/EventList';
 
 
 export default function MyEvents ({user}) {
@@ -10,7 +11,15 @@ export default function MyEvents ({user}) {
       {/* <SearchBar /> */}
       <Flex>
         <Text>Hello</Text>
-        {/* <EventList value={events} /> */}
+
+        {
+          user.eventList.length ?
+          <>
+           <EventList value={user.eventList} />
+          </>
+          :
+          <Text>You haven't got any events yet.</Text>
+        }
         {/* {
           user.eventList &&
           <Text>{user.eventList[0].limit}</Text>} */}

@@ -17,6 +17,7 @@ import Events from './containers/events/Events';
 import EventDetails from './components/Event/EventDetails';
 import NewEvent from "./containers/events/NewEvent";
 import MyEvents from './containers/events/MyEvents';
+import UserDetails from './components/User/UserDetails';
 
 
 function App() {
@@ -105,6 +106,7 @@ function App() {
               <Route path='/events/:id' render={() => (
                 <EventDetails  events={events} signUpDown={signUpDown} user={user}/>
               )}/>
+              <Route path='/users/:id' exact component={UserDetails}/>
             <Route component={Error} />
           </Switch>
         </main>

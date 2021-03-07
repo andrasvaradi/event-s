@@ -20,7 +20,8 @@ export default function SearchBar({ searchTerm, setSearchTerm }) {
   // const [searchTerm, setSearchTerm] = useState("");
   // const [checkBoxes, setCheckboxes] = useState([])
   const handleChange = event => {
-    setSearchTerm(event.target.value);
+
+    setSearchTerm(event.target.value.toLowerCase());
   };
   // React.useEffect(() => {
   //   console.log('Searchbar: ',filteredEvents)
@@ -38,7 +39,7 @@ export default function SearchBar({ searchTerm, setSearchTerm }) {
     <Box bg={'gray.300'} >
       <FormControl>
         <Flex >
-          <FormControl minWidth={'30vh'} w={'60vh'} id="search_bar" p={4} >
+          <FormControl minWidth={'30vh'} w={'60vh'} id="search_bar" marginRight={4} >
             <Input
               id="search"
               placeholder="Search for events"
