@@ -10,6 +10,9 @@ const eventSchema = new Schema({
   location: {
     type: String, required: true,
   },
+  geolocation: {
+    type: String,
+  },
   limit: {
     type: Number, default: 0,
   },

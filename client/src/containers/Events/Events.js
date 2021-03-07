@@ -3,7 +3,7 @@ import EventList from "../../components/Event/EventList";
 import SearchBar from "../SearchBar";
 import SortBar from "../SortBar";
 import Map from "../map/Map";
-import { Box, Flex, Text, Spacer } from "@chakra-ui/react";
+import { Box, Flex, Text, Wrap, Button } from "@chakra-ui/react";
 import Spinner from '../../components/Handling/Spinner';
 
 export default function Events({ value }) {
@@ -47,25 +47,45 @@ export default function Events({ value }) {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [checkBoxes])
 
+
+  function getGeoLocation (events) {
+    const list = {
+      postcodes: []
+    }
+    events.forEach(event => {
+      list.postcodes.push(event.location)
+    });
+  }
+  const [displayMap, setDisplayMap] = useState(false)
+  const toggle = () => {
+    if (!displayMap) setDisplayMap(true)
+    else setDisplayMap(false)
+  }
+
   return (
-    <div>
+    <Box >
       {
         false ?
         (<Spinner />)
         : (
         <>
-        <Box >
+        <Wrap w={'100%'} bg={'gray.300'}>
           <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
           <SortBar checkBoxes={checkBoxes} setCheckboxes={setCheckboxes} />
-        </Box>
+          <Button onClick={toggle}>Map</Button>
+        </Wrap>
         <Box h={"10px"}></Box>
         <Flex justifyContent={"space-evenly"}>
-          <Map filteredEvents={filteredEvents}/>
+          {
+            displayMap ? <Map filteredEvents={filteredEvents}/>
+            : null
+          }
+          {/* <Map filteredEvents={filteredEvents}/> */}
           <EventList value={filteredEvents} />
         </Flex>
         </>
         )
       }
-    </div>
+    </Box>
   );
 }

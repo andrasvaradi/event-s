@@ -17,6 +17,8 @@ router.post('/login', Users.login);
 router.get('/me', authMiddleware, Users.profile);
 router.post('/logout', authMiddleware, Users.logout);
 
+router.get('/postcode/:postcode', Events.test);
+
 
 //DEV
 router.get('/users', Users.getUsers);

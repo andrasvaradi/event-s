@@ -18,7 +18,7 @@ const listOfTypes = [
 export default function SortBar({ checkBoxes, setCheckboxes }) {
 
   let handleCheckboxChange = (e) => {
-
+    e.preventDefault()
     let selectedCheckboxes = [...checkBoxes];
     if (!checkBoxes.includes(e.target.value)){
       selectedCheckboxes.push(e.target.value)
@@ -53,7 +53,7 @@ export default function SortBar({ checkBoxes, setCheckboxes }) {
               </AccordionPanel>
             </AccordionItem>
 
-            <AccordionItem>
+            {/* <AccordionItem>
               {({ isExpanded }) => (
                 <>
                   <h2>
@@ -84,7 +84,7 @@ export default function SortBar({ checkBoxes, setCheckboxes }) {
                   </AccordionPanel>
                 </>
               )}
-            </AccordionItem>
+            </AccordionItem> */}
           </Accordion>
           </Flex>
         </FormControl>

@@ -1,5 +1,6 @@
 const Events = require('../models/events');
 const Users = require('../models/users');
+const axios = require('axios');
 
 
 exports.getEvents = async (req,res) => {
@@ -29,14 +30,21 @@ exports.postEvent = async (req,res) => {
   try {
     // if (!req.user.host) throw Error;
     const { _id } = req.user;
-    const newEvent = {...req.body, owner: _id};
+    // let { name, limit, location, type, description, dat, duration, photo } = req.body;
+    let { location } = req.body;
+    console.log(location);
+    const getGeoLocation = await axios.get(`http://api.postcodes.io/postcodes/${location}`);
+    console.log(getGeoLocation);
+    geolocation = `${getGeoLocation.data.result.longitude},${getGeoLocation.data.result.latitude}`;
+    const newEvent = {...req.body, geolocation, owner: _id};
+    // const newEvent = {name, limit, type, description, dat, duration, photo, location, geolocation, owner: _id};
     const events = await Events.create(newEvent);
     const addToUser = await Users.findByIdAndUpdate(_id, { $push: { eventList: events._id}},{new:true});
-    // console.log(addToUser);
+    console.log(events);
     res.status(201);
     res.send(events);
   } catch (O_O) {
-    console.error('POST EVENT: ',error);
+    console.error('POST EVENT: ',O_O);
     res.status(400);
     res.send(O_O);
   }
@@ -56,7 +64,7 @@ exports.deleteEvent = async (req,res) => {
 };
 
 exports.updateEvent = async (req,res) => {
-  
+
   try {
     const { id } = req.params;
     const event = await Events.findByIdAndUpdate(
@@ -97,3 +105,21 @@ exports.unattendEvent = async (req,res) => {
     res.status(404).send({ error, message: 'Could not assign user to event' });
   }
 };
+
+
+function fetchGeoLocation (postcode) {
+  console.log('HELLO')
+  console.log(postcode)
+  return axios.get(`http://api.postcodes.io/postcodes/${postcode}`);
+}
+
+exports.test = async (req,res) => {
+  try {
+    const { postcode } = req.params;
+    const result = await fetchGeoLocation(postcode);
+    console.log(result)
+    res.send(result.data)
+  } catch (error) {
+    res.send(error)
+  }
+}
