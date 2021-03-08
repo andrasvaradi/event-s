@@ -19,7 +19,7 @@ const userSchema = new Schema ({
     type: Boolean,
     required: true,
   },
-  photos: {
+  photo: {
     type: String,
   },
   about: {

@@ -53,7 +53,16 @@ exports.postEvent = async (req,res) => {
 exports.deleteEvent = async (req,res) => {
   try {
     const { id } = req.params;
-    const event = await Events.deleteOne({ _id: id});
+    console.log('ID FROM PARAMS', id);
+    const event = await Events.findOne({ _id: id});
+    console.log('EVENT THAT WAS FOUND: ', event);
+    await Promise.all(event.list.map(async (el, i) => {
+      await Users.findByIdAndUpdate(event.list[i], { $pull: { eventList: event._id}},{new:true});
+      console.log(event.list[i]);
+      console.log(i);
+    }));
+    const deleteFromHost = await Users.findByIdAndUpdate(event.owner, { $pull: { eventList: event._id}},{new:true});
+    const deleteEvent = await Events.deleteOne({ _id: id});
     res.status(204);
     res.send({msg: `Deleted event ${id}`});
   } catch (error) {

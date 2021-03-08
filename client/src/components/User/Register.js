@@ -12,18 +12,19 @@ import {
   Stack,
   Button,
   Heading,
-  FormHelperText,
+  FormHelperText
 } from '@chakra-ui/react';
-
+// import tempImage from '../../assets/1.jpg'
 const initialState = {
   email: '',
   password: '',
   firstName: '',
   lastName: '',
-  host: '',
+  photo: '',
+  host: ''
 };
 
-export default function Register(props) {
+export default function Register (props) {
   const [state, setState] = useState(initialState);
 
   const handleChange = (e) => {
@@ -33,7 +34,7 @@ export default function Register(props) {
     }
     setState((prevState) => ({
       ...prevState,
-      [name]: value,
+      [name]: value
     }));
     console.log(state)
   };
@@ -41,28 +42,26 @@ export default function Register(props) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const { email, password, firstName, lastName, host } = state;
-    const user = { email, password, firstName, lastName, host};
+    const { email, password, firstName, lastName, host, photo } = state;
+    const user = { email, password, firstName, lastName, host, photo };
     const res = await UsersApiService.register(user);
     if (res.error) {
       alert(`${res.message}`);
       setState(initialState);
     } else {
-
       props.setIsAuthenticated(true);
       auth.login(() => props.history.push('/profile'));
-
     }
   };
 
   const validateForm = () => {
     return (
-      !state.email || !state.password || !state.firstName || !state.lastName || !state.host === ""
+      !state.email || !state.password || !state.firstName || !state.lastName || !state.host === ''
     );
   };
   return (
-    <Flex minH={'100vh'} align={'center'} justify={'center'} bg={'gray.50'}>
-      <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
+    <Flex minH={'100vh'} align={'center'} justify={'center'} bg={'gray.100'}>
+      <Stack spacing={8} w={'50%'} maxW={'lg'} py={12} px={6}>
         <Stack align={'center'}>
           <Heading fontSize={'4xl'}>Create new account</Heading>
         </Stack>
@@ -78,8 +77,8 @@ export default function Register(props) {
                 value={state.firstName}
                 onChange={handleChange}
               />
-            </FormControl>
-            <FormControl id="last_name">
+            {/* </FormControl> */}
+            {/* <FormControl id="last_name"> */}
               <FormLabel>Last name</FormLabel>
               <Input
                 id="last_name"
@@ -88,8 +87,8 @@ export default function Register(props) {
                 value={state.lastName}
                 onChange={handleChange}
               />
-            </FormControl>
-            <FormControl id="email">
+            {/* </FormControl>
+            <FormControl id="email"> */}
               <FormLabel>Email address</FormLabel>
               <Input
                 type="email"
@@ -99,9 +98,9 @@ export default function Register(props) {
                 value={state.email}
                 onChange={handleChange}
               />
-            <FormHelperText>I'll never share your email. I don't know how!</FormHelperText>
-            </FormControl>
-            <FormControl id="password">
+              <FormHelperText>I'll never share your email. I don't know how!</FormHelperText>
+            {/* </FormControl>
+            <FormControl id="password"> */}
               <FormLabel>Password</FormLabel>
               <Input
                 type="password"
@@ -110,21 +109,28 @@ export default function Register(props) {
                 value={state.password}
                 onChange={handleChange}
               />
+            <FormLabel>Photo</FormLabel>
+            <Input
+              id="photo"
+              placeholder="Insert a link to your event photo"
+              value={state.photo}
+              name="photo"
+              onChange={handleChange}
+              />
             </FormControl>
-
             <Stack spacing={10}>
-            <FormControl id="type">
-              <FormLabel>Type of user</FormLabel>
-              <Select name="host" onChange={handleChange} placeholder="Hosting or attending?">
+              <FormControl id="type">
+                <FormLabel>Type of user</FormLabel>
+                <Select name="host" onChange={handleChange} placeholder="Hosting or attending?">
                   <option>Guest</option>
                   <option>Host</option>
-              </Select>
-            </FormControl>
+                </Select>
+              </FormControl>
               <Button
-                bg={'gray.300'}
+                bg={'custom.200'}
                 color={'white'}
                 _hover={{
-                  bg: 'gray.500',
+                  bg: 'custom.300'
                 }}
                 isDisabled={validateForm()}
                 onClick={handleSubmit}

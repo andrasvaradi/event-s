@@ -55,7 +55,7 @@ export default function NewEvent({createEvent, user}) {
     setEvent(EventObject)
   }
   return (
-    <Flex minH={'100vh'} align={'center'} justify={'center'} bg={'gray.50'}>
+    <Flex minH={'100vh'} align={'center'} justify={'center'} bg={'gray.100'}>
       <Box rounded={'lg'} bg={'white'} boxShadow={'base'} p={8} minH={'80vh'} minW={'40vh'} w={'80%'} >
         { user.host ?
         <>
@@ -164,9 +164,16 @@ export default function NewEvent({createEvent, user}) {
                 onChange={handleInputChange}
               />
             </form>
-            <input
+            {/* <input
               type="file"
               name="file"
+            /> */}
+            <Input
+              id="photo"
+              placeholder="Insert a link to your event photo"
+              value={event.photo}
+              name="photo"
+              onChange={handleInputChange}
             />
           </InputGroup>
         </FormControl>
@@ -174,11 +181,11 @@ export default function NewEvent({createEvent, user}) {
           <RouterLink to='/events'>
             <Button
               align={'center'}
-              bg={'blue.400'}
+              bg={'custom.200'}
               color={'white'}
               type="submit"
               _hover={{
-                bg: 'blue.500',
+                bg: 'custom.300',
               }}
               onClick={handleSubmit}
               >

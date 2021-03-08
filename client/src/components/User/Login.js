@@ -53,7 +53,7 @@ export default function Login(props) {
   };
 
   return (
-    <Flex minH={'100vh'} align={'center'} justify={'center'} bg={'gray.50'}>
+    <Flex minH={'100vh'} align={'center'} justify={'center'} bg={'gray.100'}>
       <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
         <Stack align={'center'}>
           <Heading fontSize={'4xl'}>Sign in to your account</Heading>
@@ -83,10 +83,10 @@ export default function Login(props) {
                 />
               </FormControl>
               <Button
-                bg={'gray.300'}
+                bg={'custom.200'}
                 color={'white'}
                 _hover={{
-                  bg: 'gray.500',
+                  bg: 'custom.300',
                 }}
                 isDisabled={validateForm()}
                 onClick={handleSubmit}
@@ -94,15 +94,9 @@ export default function Login(props) {
                 Sign in
               </Button>
             </Stack>
-            {/* <Stack
-              direction={{ base: 'column', sm: 'row' }}
-              align={'start'}
-              justify={'flex-end'}> */}
-              {/* <Checkbox>Remember me</Checkbox> */}
               <RouterLink to='/register'>
                 <Text align={'end'} color="blue.400">Create new account</Text>
               </RouterLink>
-            {/* </Stack> */}
           </Stack>
         </Box>
       </Stack>

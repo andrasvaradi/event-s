@@ -47,8 +47,8 @@ const profile = async (req, res) => {
   try {
     const populatedUser = await User.findOne({ _id: req.user._id}).populate('eventList');
     // console.log(populatedUser);
-    const { _id, firstName, lastName, host, photos, about, location, eventList } = populatedUser;
-    const user = { _id, firstName, lastName, host, photos, about, location, eventList };
+    const { _id, firstName, lastName, host, photo, about, location, eventList } = populatedUser;
+    const user = { _id, firstName, lastName, host, photo, about, location, eventList };
     // console.log(user);
     res.status(200).send(user);
   } catch (error) {

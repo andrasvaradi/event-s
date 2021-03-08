@@ -1,22 +1,65 @@
 import React from 'react';
-import { Box, Flex, Image , Text } from '@chakra-ui/react';
+import { Box, Flex, Image , Stack, Heading, Text, useColorModeValue, ScaleFade, useDisclosure } from '@chakra-ui/react';
 import { Link as RouterLink } from 'react-router-dom';
 
+
 function EventCard ({value}) {
+  // const { isOpen, onToggle } = useDisclosure()
   return (
-      <Box bg="gray.200" w="40%" h="40%" p={4} m={4}  borderRadius="md" key={value._id}>
+      <Box
+      // bg="gray.200" w="40%" h="40%" p={4} m={4}  borderRadius="md" key={value._id}
+      maxW={'40%'}
+      maxH={'50%'}
+        w={'full'}
+        bg={useColorModeValue('white', 'gray.900')}
+        boxShadow={'2xl'}
+
+        m={4}
+        borderRadius="md"
+        p={4}
+        overflow={'hidden'}>
           <RouterLink to={
             {
               pathname: `/events/${value._id}`,
               state: {event: value}}
             }>
-            {/* <div onClick={() => {navigation}}> */}
               <Flex flexDirection="column" justifyContent="center" alignItems="center">
-                <Image borderRadius="md" src={value.photo} alt="" />
-                <Text size="2xl">{value.name}</Text>
-                <Text>{value.description.slice(0,60)}...</Text>
-                <Text>{value.location}</Text>
-                <Text>{value.date.slice(0,10)}</Text>
+
+                <Box
+                  h={'150px'}
+                  bg={'gray.100'}
+                  mt={-6}
+                  mx={-6}
+                  mb={6}
+                  pos={'relative'}>
+                    <Image
+                      borderRadius="md"
+                      src={value.photo}
+                      layout={'fill'}
+                      />
+                </Box>
+                <Stack>
+                  <Heading
+                    color={useColorModeValue('gray.700', 'white')}
+                    fontSize={'2xl'}
+                    fontFamily={'body'}>
+                    {value.name}
+                  </Heading>
+                  <Text color={'gray.500'}>
+                    {value.description.slice(0,60)}
+                  </Text>
+                  <Text color={'gray.500'}>{value.location}</Text>
+                  <Text >{value.date.slice(0,10)}</Text>
+                </Stack>
+                {/* <Stack mt={6} direction={'row'} spacing={4} align={'center'}> */}
+                  {/* <Avatar
+                    src={'https://avatars0.githubusercontent.com/u/1164541?v=4'}
+                    alt={'Author'}
+                  /> */}
+                  {/* <Stack direction={'column'} spacing={0} fontSize={'sm'}>
+                    <Text fontWeight={600}>Achim Rolle</Text>
+                    <Text color={'gray.500'}>Feb 08, 2021 · 6min read</Text>
+                  </Stack> */}
               </Flex>
             {/* </div> */}
         </RouterLink>

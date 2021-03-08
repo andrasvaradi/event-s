@@ -29,20 +29,17 @@ import {
 
 } from '@chakra-ui/react';
 import { Link as RouterLink } from "react-router-dom"
-const Links = ['Home', 'Events'];
+// const Links = ['Home', 'Events'];
 
-const NavigationLink = ({ children, to }) => (
-  <Text
-    px={2}
-    py={1}
-    rounded={'md'}
-    _hover={{ textDecoration: 'none', bg: 'gray.200' }}
-  // href={to}
-  // to={to}
-  >
-    {children}
-  </Text>
-);
+// const NavigationLink = ({ children, to }) => (
+//   <Text
+//     px={2}
+//     py={1}
+//     rounded={'md'}
+//     _hover={{ textDecoration: 'none', bg: 'gray.200' }}>
+//     {children}
+//   </Text>
+// );
 
 export default function NavigationBar({ isAuthenticated, user }) {
   const { isOpen } = useDisclosure();
@@ -52,8 +49,10 @@ export default function NavigationBar({ isAuthenticated, user }) {
       <Box
         // _hover={{ textDecoration: 'none', bg: 'gray.200' }}
         bg={'gray.300'}
-        px={4}>
-        <Flex h={16} alignItems={'center'} justifyContent={'center'}>
+        px={4}
+        boxShadow={'2xl'}
+        >
+        <Flex h={16} alignItems={'center'} justifyContent={'center'} >
           {/* <IconButton
             size={'md'}
             icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
@@ -74,10 +73,10 @@ export default function NavigationBar({ isAuthenticated, user }) {
               spacing={4}
               display={{ base: 'none', md: 'flex' }}>
               <RouterLink to="/">
-                <NavigationLink key="Home">Home</NavigationLink>
+                <Button bg={'transparent'}>Home</Button>
               </RouterLink>
               <RouterLink to="/events">
-                <NavigationLink key="Events">Events</NavigationLink>
+              <Button bg={'transparent'}>Events</Button>
               </RouterLink>
               {/* {Links.map((link) => (
                 <NavigationLink key={link}>{link}</NavigationLink>
@@ -86,14 +85,6 @@ export default function NavigationBar({ isAuthenticated, user }) {
           </HStack>
           <Spacer />
           <Flex alignItems={'center'}>
-            {/* <Button
-              variant={'solid'}
-              colorScheme={'teal'}
-              size={'sm'}
-              mr={4}
-              leftIcon={<AddIcon />}>
-              Action
-            </Button> */}
             <Menu placement="top-end" >
               <MenuButton
                 as={Button}
@@ -102,7 +93,7 @@ export default function NavigationBar({ isAuthenticated, user }) {
                 cursor={'pointer'}>
                 <Avatar
                   size={'sm'}
-                // src={}
+                  src={isAuthenticated ? user.photo : null}
                 />
               </MenuButton>
               <MenuList>
@@ -110,9 +101,9 @@ export default function NavigationBar({ isAuthenticated, user }) {
                     isAuthenticated ?
                     // <MenuList>
                     <>
-                    <RouterLink to="/my-events">
+                    {/* <RouterLink to="/my-events">
                       <MenuItem>My events</MenuItem>
-                    </RouterLink >
+                    </RouterLink > */}
                     {
                       user.host && 
                       <RouterLink to="/new-event">
@@ -144,7 +135,6 @@ export default function NavigationBar({ isAuthenticated, user }) {
                           </PopoverContent>
                         </Portal>
                       </Popover>
-                      {/* <MenuItem>Logout</MenuItem> */}
                     </>
                     :
                     <RouterLink to="/login">
@@ -156,7 +146,7 @@ export default function NavigationBar({ isAuthenticated, user }) {
           </Flex>
         </Flex>
 
-        {isOpen ? (
+        {/* {isOpen ? (
           <Box m={0}>
             <Stack as={'nav'} spacing={4}>
               {Links.map((link) => (
@@ -164,7 +154,7 @@ export default function NavigationBar({ isAuthenticated, user }) {
               ))}
             </Stack>
           </Box>
-        ) : null}
+        ) : null} */}
       </Box>
     </>
   );

@@ -63,13 +63,13 @@ export default function Events({ value }) {
   }
 
   return (
-    <Box >
+    <Box bg={'gray.100'} h={'100vh'} >
       {
         false ?
         (<Spinner />)
         : (
         <>
-        <Wrap w={'100%'} bg={'gray.300'} p={4} >
+        <Wrap w={'100%'} bg={'gray.300'} p={4} boxShadow={'md'} >
           <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
           <Button marginRight={4} onClick={toggle}>Map</Button>
           <SortBar checkBoxes={checkBoxes} setCheckboxes={setCheckboxes} />
