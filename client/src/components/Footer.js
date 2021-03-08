@@ -12,7 +12,7 @@ import { ReactNode } from 'react';
 export default function SmallWithSocial() {
   return (
     <Box
-    bg={'gray.300'}
+    bg={'custom.100'}
     justify={'center'}
     >
       <Container

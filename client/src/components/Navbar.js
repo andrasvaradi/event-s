@@ -48,7 +48,10 @@ export default function NavigationBar({ isAuthenticated, user }) {
     <>
       <Box
         // _hover={{ textDecoration: 'none', bg: 'gray.200' }}
-        bg={'gray.300'}
+        bg={'custom.100'}
+        // bg={'gray.300'}
+        // bgGradient="linear(to-l, blue.500, #7928CA)"
+        // bgGradient="linear(to-l, gray.300,custom.400)"
         px={4}
         boxShadow={'2xl'}
         >
@@ -73,10 +76,14 @@ export default function NavigationBar({ isAuthenticated, user }) {
               spacing={4}
               display={{ base: 'none', md: 'flex' }}>
               <RouterLink to="/">
-                <Button bg={'transparent'}>Home</Button>
+                <Button 
+                // color={'white'}
+                 bg={'transparent'}>Home</Button>
               </RouterLink>
               <RouterLink to="/events">
-              <Button bg={'transparent'}>Events</Button>
+              <Button
+              //  color={'white'} 
+               bg={'transparent'}>Events</Button>
               </RouterLink>
               {/* {Links.map((link) => (
                 <NavigationLink key={link}>{link}</NavigationLink>
@@ -128,7 +135,7 @@ export default function NavigationBar({ isAuthenticated, user }) {
                               <ButtonGroup size="sm">
                                   <Button variant="outline">No</Button>
                                   <RouterLink to="/logout">
-                                  <Button colorScheme="red">Yes</Button>
+                                  <Button bg="custom.100">Yes</Button>
                                   </RouterLink>
                                 </ButtonGroup>
                             </PopoverBody>

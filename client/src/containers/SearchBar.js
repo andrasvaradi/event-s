@@ -36,9 +36,9 @@ export default function SearchBar({ searchTerm, setSearchTerm }) {
 
 
   return (
-    <Box bg={'gray.300'} >
+    <Box  >
       <FormControl>
-        <Flex >
+        <Flex  >
           <FormControl minWidth={'30vh'} w={'60vh'} id="search_bar" marginRight={4} >
             <Input
               id="search"

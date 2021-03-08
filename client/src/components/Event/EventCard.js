@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box, Flex, Image , Stack, Heading, Text, useColorModeValue, ScaleFade, useDisclosure } from '@chakra-ui/react';
 import { Link as RouterLink } from 'react-router-dom';
+import moment from 'moment';
 
 
 function EventCard ({value}) {
@@ -49,19 +50,11 @@ function EventCard ({value}) {
                     {value.description.slice(0,60)}
                   </Text>
                   <Text color={'gray.500'}>{value.location}</Text>
-                  <Text >{value.date.slice(0,10)}</Text>
+                  <Text >{moment(value.date).format("MMM Do YY")}</Text>
                 </Stack>
-                {/* <Stack mt={6} direction={'row'} spacing={4} align={'center'}> */}
-                  {/* <Avatar
-                    src={'https://avatars0.githubusercontent.com/u/1164541?v=4'}
-                    alt={'Author'}
-                  /> */}
-                  {/* <Stack direction={'column'} spacing={0} fontSize={'sm'}>
-                    <Text fontWeight={600}>Achim Rolle</Text>
-                    <Text color={'gray.500'}>Feb 08, 2021 · 6min read</Text>
-                  </Stack> */}
+
               </Flex>
-            {/* </div> */}
+
         </RouterLink>
       </Box>
   )

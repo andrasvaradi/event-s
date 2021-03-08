@@ -3,7 +3,7 @@ import EventList from "../../components/Event/EventList";
 import SearchBar from "../SearchBar";
 import SortBar from "../SortBar";
 import Map from "../map/Map";
-import { Box, Flex, Text, Wrap, Button } from "@chakra-ui/react";
+import { Box, Flex, Text, Wrap, Button,Stack, Heading, Image } from "@chakra-ui/react";
 import Spinner from '../../components/Handling/Spinner';
 
 export default function Events({ value }) {
@@ -63,32 +63,42 @@ export default function Events({ value }) {
   }
 
   return (
-    <Box bg={'gray.100'} h={'100vh'} >
+    <Box bg={'custom.100'} h={'100vh'} >
+    <Stack minH={'100vh'}  direction={{ base: 'column', md: 'row' }} p={20}
+    bgImage="url('https://res.cloudinary.com/dujun1hoe/image/upload/v1615228154/event-s/gradient-background-26046-26731-hd-wallpapers.jpg_cenrqe.png')"  
+    bgSize="100% 50%"
+    backgroundRepeat="no-repeat"
+    >
       {
         false ?
         (<Spinner />)
         : (
         <>
-        <Wrap w={'100%'} bg={'gray.300'} p={4} boxShadow={'md'} >
-          <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-          <Button marginRight={4} onClick={toggle}>Map</Button>
+        <Flex flex={1} paddingTop={0} p={8} justify={'center'} >
+          <Stack spacing={6} w={'full'} maxW={'lg'}>
           <SortBar checkBoxes={checkBoxes} setCheckboxes={setCheckboxes} />
-        </Wrap>
-        <Box h={"10px"}></Box>
-        <Wrap m={5}>
-          {
-            displayMap ? <Map filteredEvents={filteredEvents}/>
-            : null
-          }
-
+            <Text color={'white'} align={'center'}>{filteredEvents.length} matching events</Text>
+            <Map filteredEvents={filteredEvents}/>
+          </Stack>
+        </Flex>
+        <Flex
+          borderRadius="md"
+          flex={2}
+          p={8}
+          flexDirection={'column'}
+          justifyContent={'end'}
+          bg={'transparent'}
+          >
+          <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+          <Wrap>
             <EventList value={filteredEvents} />
-          <Flex justifyContent={"space-evenly"}>
-            {/* <Map filteredEvents={filteredEvents}/> */}
-          </Flex>
-        </Wrap>
+          </Wrap>
+        </Flex>
         </>
         )
       }
-    </Box>
+      </Stack>
+     </Box>
   );
 }
+

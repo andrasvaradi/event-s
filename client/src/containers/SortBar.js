@@ -8,7 +8,7 @@ import {
   AccordionButton,
   AccordionPanel,
   Text,
-  Checkbox, CheckboxGroup , HStack
+  Checkbox, CheckboxGroup , Wrap
 } from '@chakra-ui/react';
 
 const listOfTypes = [
@@ -29,14 +29,14 @@ export default function SortBar({ checkBoxes, setCheckboxes }) {
   }
 
   return (
-    <Box  >
-      <FormControl>
-        <Flex>
-          <Accordion allowMultiple >
-            <AccordionItem >
+    <Box w={'100%'} justify={'center'} borderRadius="md">
+      <FormControl justify={'center'}>
+        <Flex justify={'center'}  borderRadius="md">
+          <Accordion w={'100%'}  allowMultiple bg={'gray.100'} borderRadius="md" >
+            <AccordionItem w={'100%'}>
               <h2>
-                <AccordionButton borderRadius="md" bg={'gray.50'}>
-                  <Box  flex="1" textAlign="left">
+                <AccordionButton borderRadius="md" >
+                  <Box  flex="1" textAlign="center">
                     Filter
                   </Box>
                 </AccordionButton>
@@ -44,47 +44,16 @@ export default function SortBar({ checkBoxes, setCheckboxes }) {
               <AccordionPanel pb={4}>
               <CheckboxGroup colorScheme="green" >
                 <Text>Type:</Text>
-                <HStack>
+                <Wrap
+                 spacing="0px"
+                 >
                 {
-                  listOfTypes.map(el => <Checkbox onChange={handleCheckboxChange} key={el} value={el}>{el}</Checkbox> )
+                  listOfTypes.map(el => <Checkbox m={2} onChange={handleCheckboxChange} key={el} value={el}>{el}</Checkbox> )
                 }
-                </HStack>
+                </Wrap>
               </CheckboxGroup>
               </AccordionPanel>
             </AccordionItem>
-
-            {/* <AccordionItem>
-              {({ isExpanded }) => (
-                <>
-                  <h2>
-                    <AccordionButton>
-                      <Box flex="1" textAlign="left">
-                        Sort
-                      </Box>
-                      {isExpanded ? (
-                        // <MinusIcon fontSize="12px" />
-                      // <Text>-</Text>
-                      null
-                      ) : (
-                        // <AddIcon fontSize="12px" />
-                        // <Text>+</Text>
-                        null
-                      )}
-                    </AccordionButton>
-                  </h2>
-                  <AccordionPanel pb={4}>
-                  <CheckboxGroup colorScheme="green" defaultValue={["naruto", "kakashi"]}>
-                    <Text>Date:</Text>
-                    <HStack>
-                      <Checkbox onClick={handleCheckboxChange} value="ascending">Ascending</Checkbox>
-                      <Checkbox onClick={handleCheckboxChange} value="descending">Descending</Checkbox>
-                      <Checkbox onClick={handleCheckboxChange} value="Other">Other</Checkbox>
-                    </HStack>
-                  </CheckboxGroup>
-                  </AccordionPanel>
-                </>
-              )}
-            </AccordionItem> */}
           </Accordion>
           </Flex>
         </FormControl>

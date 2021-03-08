@@ -18,7 +18,8 @@ import {
   InputGroup,
   WrapItem,
   Textarea,
-  Button
+  Button,
+  Spacer
 } from '@chakra-ui/react';
 import { Link as RouterLink } from 'react-router-dom';
 
@@ -55,7 +56,10 @@ export default function NewEvent({createEvent, user}) {
     setEvent(EventObject)
   }
   return (
-    <Flex minH={'100vh'} align={'center'} justify={'center'} bg={'gray.100'}>
+    <Flex minH={'100vh'} align={'center'} justify={'center'} 
+    bgImage="url('https://res.cloudinary.com/dujun1hoe/image/upload/v1615228154/event-s/gradient-background-26046-26731-hd-wallpapers.jpg_cenrqe.png')"  
+    bgSize="100%"
+    backgroundRepeat="no-repeat">
       <Box rounded={'lg'} bg={'white'} boxShadow={'base'} p={8} minH={'80vh'} minW={'40vh'} w={'80%'} >
         { user.host ?
         <>
@@ -67,31 +71,6 @@ export default function NewEvent({createEvent, user}) {
           <FormControl id="name" >
             <FormLabel>Name of event</FormLabel>
             <Input value={event.name} name="name" onChange={handleInputChange} id="first_name" placeholder="Type something..." />
-          </FormControl>
-
-
-          <FormControl id="limit" >
-            <FormLabel>Limit of attendees</FormLabel>
-            <NumberInput
-              min={1}
-              max={99999}
-              clampValueOnBlur={false}
-              allowMouseWheel
-            >
-              <NumberInputField
-              value={event.limit}
-              name="limit"
-              onChange={handleInputChange}
-              />
-              {/* <NumberInputStepper 
-               value={event.limit}
-                name="limit"
-                onChange={handleInputChange}
-              >
-                <NumberIncrementStepper />
-                <NumberDecrementStepper />
-              </NumberInputStepper> */}
-            </NumberInput>
           </FormControl>
 
           <FormControl id="location"  >
@@ -121,9 +100,9 @@ export default function NewEvent({createEvent, user}) {
               <option>Other</option>
             </Select>
           </FormControl>
-
+          <Flex w={'100%'} mt={3}>
           <FormControl id="duration" >
-            <FormLabel>Duration (in hours)</FormLabel>
+            <FormLabel >Duration (in hours)</FormLabel>
             <NumberInput
               defaultValue={1}
               min={1}
@@ -136,12 +115,25 @@ export default function NewEvent({createEvent, user}) {
                 name="duration"
                 onChange={handleInputChange}
               />
-              {/* <NumberInputStepper>
-                <NumberIncrementStepper />
-                <NumberDecrementStepper />
-              </NumberInputStepper> */}
             </NumberInput>
           </FormControl>
+          <FormControl id="limit" >
+            <FormLabel justify={'center'}>Limit of attendees</FormLabel>
+            <NumberInput
+              min={1}
+              max={99999}
+              clampValueOnBlur={false}
+              allowMouseWheel
+            >
+              <NumberInputField
+              value={event.limit}
+              name="limit"
+              onChange={handleInputChange}
+              />
+            </NumberInput>
+          </FormControl>
+
+          </Flex>
         </Flex>
         <Box>
           <Text mb="8px">Description:</Text>
@@ -158,7 +150,7 @@ export default function NewEvent({createEvent, user}) {
             <FormLabel>Date</FormLabel>
             <form >
               <input
-                type="datetime-local"
+                type="date"
                 value={event.date}
                 name="date"
                 onChange={handleInputChange}
@@ -177,11 +169,12 @@ export default function NewEvent({createEvent, user}) {
             />
           </InputGroup>
         </FormControl>
-        <Stack direction="row" spacing={4} align="center">
+        <Stack direction="row" spacing={4} justify="center" >
           <RouterLink to='/events'>
             <Button
               align={'center'}
               bg={'custom.200'}
+              w={'30vh'}
               color={'white'}
               type="submit"
               _hover={{

@@ -60,10 +60,18 @@ export default function Register (props) {
     );
   };
   return (
-    <Flex minH={'100vh'} align={'center'} justify={'center'} bg={'gray.100'}>
+    <Flex
+      minH={'100vh'}
+      align={'center'}
+      justify={'center'}
+      bg={'gray.100'}
+      bgImage="url('https://res.cloudinary.com/dujun1hoe/image/upload/v1615228154/event-s/gradient-background-26046-26731-hd-wallpapers.jpg_cenrqe.png')"  
+      bgSize="100%"
+      backgroundRepeat="no-repeat"
+    >
       <Stack spacing={8} w={'50%'} maxW={'lg'} py={12} px={6}>
         <Stack align={'center'}>
-          <Heading fontSize={'4xl'}>Create new account</Heading>
+          <Heading color={'white'} fontSize={'4xl'}>Create new account</Heading>
         </Stack>
         <Box rounded={'lg'} bg={'white'} boxShadow={'lg'} p={8}>
 

@@ -15,7 +15,6 @@ import Profile from './components/User/Profile'
 import Events from './containers/events/Events'
 import EventDetails from './components/Event/EventDetails'
 import NewEvent from './containers/events/NewEvent'
-import MyEvents from './containers/events/MyEvents'
 import UserDetails from './components/User/UserDetails'
 import Image from './Image'
 import Footer from './components/Footer';
@@ -101,7 +100,7 @@ function App () {
                 <MyEvents user={user} />)} /> */}
 
               <Route path='/events' exact render={() => (
-                <Events value={events} />
+                <Events value={events}/>
               )} />
               <Route path='/events/:id' render={() => (
                 <EventDetails events={events} signUpDown={signUpDown} user={user} />

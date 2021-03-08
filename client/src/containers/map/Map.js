@@ -25,21 +25,8 @@ export default function Map ({ filteredEvents }) {
       setLat(map.getCenter().lat.toFixed(4));
       setZoom(map.getZoom().toFixed(2));
     });
-    // console.log(map)
-    map.addControl(new mapboxgl.NavigationControl(), 'top-right');
-    // const nav = new mapboxgl.NavigationControl();
-    // map.addControl(nav, "top-right");
-    // const marker = new mapboxgl.Marker()
-    // .setLngLat([-0.207302,51.487815])
-    // .addTo(map);
 
-    // const getCoordinates = ({ longitude: centerLon, latitude: centerLat }) => {
-    //   const r = 0.025 * Math.sqrt(Math.random());
-    //   const theta = Math.random() * 2 * Math.PI;
-    //   const latitude = centerLat + r * Math.cos(theta);
-    //   const longitude = centerLon + r * Math.sin(theta);
-    //   return { longitude, latitude };
-    // };
+    map.addControl(new mapboxgl.NavigationControl(), 'top-right');
 
 
     const fetchData = centerCoordinates => {
@@ -62,50 +49,14 @@ export default function Map ({ filteredEvents }) {
           },
         });
       })
-      // for (let i = 0; i < 20; i++) {
-      //   const id = i;
-      //   const { longitude, latitude } = getCoordinates(centerCoordinates);
-      //   newFeaturesList.push({
-      //     type: 'Feature',
-      //     geometry: {
-      //       type: 'Point',
-      //       coordinates: [longitude, latitude],
-      //     },
-      //     properties: {
-      //       id,
-      //       name: `Random Point #${id}`,
-      //       description: `description for Random Point #${id}`,
-      //     },
-      //   });
-      // }
+
       return Promise.resolve({
         type: 'FeatureCollection',
         features: newFeaturesList,
       });
     };
 
-    // map.on('load', () => {
-    //   // add the data source for new a feature collection with no features
-    //   map.addSource('random-points-data', {
-    //     type: 'geojson',
-    //     data: {
-    //       type: 'FeatureCollection',
-    //       features: [],
-    //     },
-    //   });
-    //   // now add the layer, and reference the data source above by name
-    //   map.addLayer({
-    //     id: 'random-points-layer',
-    //     source: 'random-points-data',
-    //     type: 'symbol',
-    //     layout: {
-    //       // full list of icons here: https://labs.mapbox.com/maki-icons
-    //       'icon-image': 'bakery-15', // this will put little croissants on our map
-    //       'icon-padding': 0,
-    //       'icon-allow-overlap': true,
-    //     },
-    //   });
-    // });
+
     map.on('load', async () => {
       // get center coordinates
       const { lng, lat } = map.getCenter();
@@ -114,9 +65,6 @@ export default function Map ({ filteredEvents }) {
       // iterate through the feature collection and append marker to the map for each feature
       results.features.forEach(result => {
         const { id, geometry } = result;
-        // create marker node
-        // const markerNode = document.createElement('div');
-        // ReactDOM.render(<Marker id={id} />, markerNode);
         // add marker to map
         new mapboxgl.Marker()
           .setLngLat(geometry.coordinates)
