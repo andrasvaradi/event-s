@@ -1,23 +1,23 @@
 import React from 'react';
-import { Box, Flex, Image , Stack, Heading, Text, useColorModeValue, ScaleFade, useDisclosure } from '@chakra-ui/react';
+import { Box, Flex, Image , Stack, Heading, Text, useColorModeValue } from '@chakra-ui/react';
 import { Link as RouterLink } from 'react-router-dom';
 import moment from 'moment';
 
 
 function EventCard ({value}) {
-  // const { isOpen, onToggle } = useDisclosure()
+
   return (
       <Box
-      // bg="gray.200" w="40%" h="40%" p={4} m={4}  borderRadius="md" key={value._id}
       maxW={'40%'}
+      h={'250px'}
       maxH={'50%'}
-        w={'full'}
+        w={'25%'}
         bg={useColorModeValue('white', 'gray.900')}
         boxShadow={'2xl'}
 
-        m={4}
+        m={2}
         borderRadius="md"
-        p={4}
+        p={2}
         overflow={'hidden'}>
           <RouterLink to={
             {
@@ -27,28 +27,27 @@ function EventCard ({value}) {
               <Flex flexDirection="column" justifyContent="center" alignItems="center">
 
                 <Box
-                  h={'150px'}
+                  h={'20%'}
                   bg={'gray.100'}
                   mt={-6}
                   mx={-6}
                   mb={6}
-                  pos={'relative'}>
+                  pos={'relative'}
+                  >
                     <Image
                       borderRadius="md"
                       src={value.photo}
-                      layout={'fill'}
+                      // layout={'fill'}
                       />
                 </Box>
                 <Stack>
                   <Heading
                     color={useColorModeValue('gray.700', 'white')}
-                    fontSize={'2xl'}
+                    fontSize={'medium'}
                     fontFamily={'body'}>
                     {value.name}
                   </Heading>
-                  <Text color={'gray.500'}>
-                    {value.description.slice(0,60)}
-                  </Text>
+                  
                   <Text color={'gray.500'}>{value.location}</Text>
                   <Text >{moment(value.date).format("MMM Do YY")}</Text>
                 </Stack>

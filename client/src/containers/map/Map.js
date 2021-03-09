@@ -1,11 +1,9 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import './Map.css';
 import React, { useRef, useEffect, useState } from 'react';
 import mapboxgl from 'mapbox-gl';
 
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
-// default public token below
-// maboxgl.accessToken = "pk.eyJ1IjoiYW5kcmVqb3ZpdHMiLCJhIjoiY2tseGZsemV4MHBhMzJ1cnp3b2ttYXc4YiJ9.b0_0duw9DfevPB-whkcQbw";
-
 
 export default function Map ({ filteredEvents }) {
 
@@ -29,7 +27,7 @@ export default function Map ({ filteredEvents }) {
     map.addControl(new mapboxgl.NavigationControl(), 'top-right');
 
 
-    const fetchData = centerCoordinates => {
+    const fetchData = () => {
       const newFeaturesList = [];
       filteredEvents.forEach(el => {
         const id = el._id;
@@ -64,7 +62,7 @@ export default function Map ({ filteredEvents }) {
       const results = await fetchData({ longitude: lng, latitude: lat });
       // iterate through the feature collection and append marker to the map for each feature
       results.features.forEach(result => {
-        const { id, geometry } = result;
+        const { geometry } = result;
         // add marker to map
         new mapboxgl.Marker()
           .setLngLat(geometry.coordinates)
@@ -79,7 +77,7 @@ export default function Map ({ filteredEvents }) {
       const results = await fetchData({ longitude: lng, latitude: lat });
       // iterate through the feature collection and append marker to the map for each feature
       results.features.forEach(result => {
-        const { id, geometry } = result;
+        const { geometry } = result;
         // create marker node
         // const markerNode = document.createElement('div');
         // ReactDOM.render(<Marker id={id} />, markerNode);

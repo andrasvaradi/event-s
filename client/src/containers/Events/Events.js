@@ -1,16 +1,16 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 import EventList from "../../components/Event/EventList";
 import SearchBar from "../SearchBar";
 import SortBar from "../SortBar";
 import Map from "../map/Map";
-import { Box, Flex, Text, Wrap, Button,Stack, Heading, Image } from "@chakra-ui/react";
 import Spinner from '../../components/Handling/Spinner';
+import { Box, Flex, Text ,Stack } from "@chakra-ui/react";
 
 export default function Events({ value }) {
   const [filteredEvents, setFilteredEvents] = useState([...value]);
   const [searchTerm, setSearchTerm] = useState('')
   const [checkBoxes, setCheckboxes] = useState([])
-
 
   function search () {
     if (!searchTerm && checkBoxes.length) return check()
@@ -38,35 +38,19 @@ export default function Events({ value }) {
     if(checkBoxes.length && !searchTerm) {
       check()
     }
-    // if(!checkBoxes.length && searchTerm) search()
     search()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
   }, [searchTerm])
   useEffect(() => {
     check()
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+
   }, [checkBoxes])
-
-
-  function getGeoLocation (events) {
-    const list = {
-      postcodes: []
-    }
-    events.forEach(event => {
-      list.postcodes.push(event.location)
-    });
-  }
-  const [displayMap, setDisplayMap] = useState(false)
-  const toggle = () => {
-    if (!displayMap) setDisplayMap(true)
-    else setDisplayMap(false)
-  }
 
   return (
     <Box bg={'custom.100'} h={'100vh'} >
     <Stack minH={'100vh'}  direction={{ base: 'column', md: 'row' }} p={20}
     bgImage="url('https://res.cloudinary.com/dujun1hoe/image/upload/v1615228154/event-s/gradient-background-26046-26731-hd-wallpapers.jpg_cenrqe.png')"  
-    bgSize="100% 50%"
+    bgSize="cover"
     backgroundRepeat="no-repeat"
     >
       {
@@ -77,8 +61,8 @@ export default function Events({ value }) {
         <Flex flex={1} paddingTop={0} p={8} justify={'center'} >
           <Stack spacing={6} w={'full'} maxW={'lg'}>
           <SortBar checkBoxes={checkBoxes} setCheckboxes={setCheckboxes} />
-            <Text color={'white'} align={'center'}>{filteredEvents.length} matching events</Text>
             <Map filteredEvents={filteredEvents}/>
+            <Text color={'black'} fontWeight="bold" align={'center'}>{filteredEvents.length} matching events</Text>
           </Stack>
         </Flex>
         <Flex
@@ -88,11 +72,14 @@ export default function Events({ value }) {
           flexDirection={'column'}
           justifyContent={'end'}
           bg={'transparent'}
+          h={'60vh'}
+          overflow={'scroll'}
+          // overflowX
           >
           <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-          <Wrap>
+          <Box w={'100%'}>
             <EventList value={filteredEvents} />
-          </Wrap>
+          </Box>
         </Flex>
         </>
         )

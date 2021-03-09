@@ -12,11 +12,8 @@ import {
   MenuList,
   MenuItem,
   MenuDivider,
-  useDisclosure,
-  Stack,
   Image,
   Spacer,
-  Text,
   PopoverContent,
   PopoverTrigger,
   PopoverCloseButton,
@@ -29,46 +26,22 @@ import {
 
 } from '@chakra-ui/react';
 import { Link as RouterLink } from "react-router-dom"
-// const Links = ['Home', 'Events'];
-
-// const NavigationLink = ({ children, to }) => (
-//   <Text
-//     px={2}
-//     py={1}
-//     rounded={'md'}
-//     _hover={{ textDecoration: 'none', bg: 'gray.200' }}>
-//     {children}
-//   </Text>
-// );
 
 export default function NavigationBar({ isAuthenticated, user }) {
-  const { isOpen } = useDisclosure();
+  // const { isOpen } = useDisclosure();
   console.log(user)
   return (
     <>
       <Box
-        // _hover={{ textDecoration: 'none', bg: 'gray.200' }}
         bg={'custom.100'}
-        // bg={'gray.300'}
-        // bgGradient="linear(to-l, blue.500, #7928CA)"
-        // bgGradient="linear(to-l, gray.300,custom.400)"
         px={4}
         boxShadow={'2xl'}
         >
         <Flex h={16} alignItems={'center'} justifyContent={'center'} >
-          {/* <IconButton
-            size={'md'}
-            icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
-            aria-label={'Open Menu'}
-            display={{ md: !isOpen ? 'none' : 'inherit' }}
-            onClick={isOpen ? onClose : onOpen}
-          /> */}
+
           <RouterLink to="/">
             <Image src={'logo-black.png'} w={'75px'} alt=""></Image>
           </RouterLink>
-          {/* <Box >
-              <Image src={'EVENT-S.png'} boxSize="50px" alt=""></Image>
-          </Box> */}
           <Spacer />
           <HStack spacing={128} alignItems={'center'} >
             <HStack
@@ -76,18 +49,15 @@ export default function NavigationBar({ isAuthenticated, user }) {
               spacing={4}
               display={{ base: 'none', md: 'flex' }}>
               <RouterLink to="/">
-                <Button 
+                <Button
                 // color={'white'}
                  bg={'transparent'}>Home</Button>
               </RouterLink>
               <RouterLink to="/events">
               <Button
-              //  color={'white'} 
                bg={'transparent'}>Events</Button>
               </RouterLink>
-              {/* {Links.map((link) => (
-                <NavigationLink key={link}>{link}</NavigationLink>
-              ))} */}
+
             </HStack>
           </HStack>
           <Spacer />
@@ -106,13 +76,9 @@ export default function NavigationBar({ isAuthenticated, user }) {
               <MenuList>
                   {
                     isAuthenticated ?
-                    // <MenuList>
                     <>
-                    {/* <RouterLink to="/my-events">
-                      <MenuItem>My events</MenuItem>
-                    </RouterLink > */}
                     {
-                      user.host && 
+                      user.host &&
                       <RouterLink to="/new-event">
                         <MenuItem>New event</MenuItem>
                       </RouterLink >
@@ -131,7 +97,6 @@ export default function NavigationBar({ isAuthenticated, user }) {
                             <PopoverHeader>Are you sure?</PopoverHeader>
                             <PopoverCloseButton />
                             <PopoverBody>
-                              {/* <Button colorScheme="gray.600">Button</Button> */}
                               <ButtonGroup size="sm">
                                   <Button variant="outline">No</Button>
                                   <RouterLink to="/logout">
@@ -153,15 +118,6 @@ export default function NavigationBar({ isAuthenticated, user }) {
           </Flex>
         </Flex>
 
-        {/* {isOpen ? (
-          <Box m={0}>
-            <Stack as={'nav'} spacing={4}>
-              {Links.map((link) => (
-                <NavigationLink key={link}>{link}</NavigationLink>
-              ))}
-            </Stack>
-          </Box>
-        ) : null} */}
       </Box>
     </>
   );

@@ -9,7 +9,7 @@ export default function Unattend ({unattend}) {
   return (
       <Popover>
         <PopoverTrigger>
-          <Button w={'100%'} >Unattend</Button>
+          <Button w={'40%'} >Unattend</Button>
         </PopoverTrigger>
         <Portal>
           <PopoverContent>

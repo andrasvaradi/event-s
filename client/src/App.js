@@ -15,8 +15,6 @@ import Profile from './components/User/Profile'
 import Events from './containers/events/Events'
 import EventDetails from './components/Event/EventDetails'
 import NewEvent from './containers/events/NewEvent'
-import UserDetails from './components/User/UserDetails'
-import Image from './Image'
 import Footer from './components/Footer';
 
 function App () {

@@ -1,12 +1,10 @@
 import {
   Box,
-  chakra,
   Container,
   Stack,
-  Text,
-  useColorModeValue,
+  Text
 } from '@chakra-ui/react';
-import { ReactNode } from 'react';
+
 
 
 export default function SmallWithSocial() {

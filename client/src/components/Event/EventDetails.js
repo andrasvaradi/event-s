@@ -1,13 +1,10 @@
-import React, {useEffect, useState} from 'react'
+import React from 'react'
 import { useParams } from 'react-router-dom';
 import Spinner from '../Handling/Spinner'
-import { Flex, Stack, Text, Image, Box, Wrap, Heading, Grid,
-  GridItem, Container } from '@chakra-ui/react';
+import { Flex, Stack, Text, Image, Box, Wrap } from '@chakra-ui/react';
 import Attend from './Buttons/Attend';
 import Unattend from './Buttons/Unattend';
 import moment from 'moment';
-import { Link as RouterLink } from 'react-router-dom';
-import UsersApiService from '../../services/UsersApiService';
 
 
 
@@ -15,7 +12,7 @@ export default function EventDetails ({events, signUpDown,user}) {
 
   let { id } = useParams();
   const event = events.find(el => el._id === id)
-
+  console.log(event)
   const handleSubmit = (e) => {
     e.preventDefault()
     signUpDown('up', id);
@@ -30,7 +27,6 @@ export default function EventDetails ({events, signUpDown,user}) {
     bgImage="url('https://res.cloudinary.com/dujun1hoe/image/upload/v1615228154/event-s/gradient-background-26046-26731-hd-wallpapers.jpg_cenrqe.png')"  
     bgSize="100% 50%"
     backgroundRepeat="no-repeat"
-    // bgGradient="linear(to-t, gray.50,custom.400)"
     >
 
     {
@@ -47,69 +43,63 @@ export default function EventDetails ({events, signUpDown,user}) {
         boxShadow={'md'}
         m={20}
         >
-      {/* <Wrap > */}
-      <Grid
-          borderRadius="md"
-          h="300px"
-          templateRows="repeat(3, 1fr)"
-          templateColumns="repeat(10, 2fr)"
-          // gap={4}
-        >
-          <GridItem  rowSpan={3} colSpan={6}>
-            {/* <Box w={'100%'} h={'100%'} boxSize="lg"> */}
-               <Image w={'100%'} h={'100%'} borderRadius="md" src={event.photo} alt="" />
-            {/* </Box> */}
-          </GridItem>
-           <GridItem borderRadius="md" justifyContent={'center'} rowSpan={3} colSpan={4}>
-             <Flex flexDirection={'column'} align={'center'} justify={'center'}>
-              <Heading fontSize="3xl" m={3} >{event.name}</Heading>
-              <Text fontSize="xl" >LOCATION {event.location}</Text>
+          <Wrap w={'100%'} align={'center'} p={1} >
+            <Box w={'50%'}  minW={'300px'}>
+               <Image 
+               borderRadius="md"
+               boxShadow="md"
+               src={event.photo} alt="" />
+            </Box>
+            <Stack w={'50%'} align={'center'} >
+
+             <Flex flexDirection={'column'} justify={'center'}  >
+              <Text fontSize="3xl" m={3} >{event.name}</Text>
+              <Text align={'center'} fontSize="xl" >{event.location}</Text>
              </Flex>
-          </GridItem>
-          {/*<GridItem boxShadow={'md'} borderRadius="md" colSpan={2} bg={'custom.300'}>
-            <Text fontSize="2xl" p={3} align={'center'}>DATE {moment(event.date).format("MMM Do YYYY")}</Text>
-            <Text fontSize="xl" p={3} align={'center'} >Duration {event.duration}</Text>
-          </GridItem>
-          <GridItem boxShadow={'md'} borderRadius="md" colSpan={2} bg={'custom.100'}>
-            <Text fontSize="2xl" p={3} align={'center'}>TYPE OF EVENT {event.type} </Text>
-          </GridItem>
-          <GridItem boxShadow={'md'} borderRadius="md" colSpan={2} bg={'custom.100'}>
-            <Text fontSize="2xl" p={3} align={'center'}>AMOUNT ATTENDING {event.attendees}</Text>
-          </GridItem> */}
-        </Grid>
-      <Box>
-        {/* <Image borderRadius="md" src={event.photo} alt="" /> */}
-        <Heading m={3} >{event.name}</Heading>
-      </Box>
-      {/* </Wrap> */}
+             {
+                !Object.keys(user).length || user.host ?
+                null :
+                (
+                  !user.eventList.some(el => el._id === id) ? (
+                    <Attend handleSubmit={handleSubmit} />
+                    ) : (
+                      <Unattend unattend={unattend}/>
+                      )
+                      )
+                }
+            </Stack>
+            </Wrap>
       <Box p={4}>
-      <Stack spacing={8}>
-        <Box p={4}>
-          <Container align={'center'}>
-            <Text>{event.description}</Text>
-          </Container>
-        </Box>
-        {/* {
-          ownerdeets.firstName ? (
-          <RouterLink to={`/events/${ownerDetails._id}`}>
-            <Text>{ownerDetails.firstName}</Text>
-          </RouterLink>
-            ) : (
-          <Spinner />
-            )
-        } */}
+      <Stack w={'100%'} h={'60vh'} direction={{ base: 'column', md: 'row' }} >
+
+          <Flex h={'60%'} flex={1} pl={4} align={'end'} justifyContent={"space-evenly"} flexDirection={'column'} >
+            <Wrap  align={'center'} >
+              <Image  borderRadius="md" src={'https://res.cloudinary.com/dujun1hoe/image/upload/v1615296945/event-s/icons/calendar-2_hmjf1m.png'} alt="" />
+              <Text justify={'center'} >{moment(event.date).format("MMM Do YY")}</Text>
+            </Wrap>
+            <Wrap align={'center'}>
+              <Image  borderRadius="md" src={'https://res.cloudinary.com/dujun1hoe/image/upload/v1615296946/event-s/icons/alarm-2_csdsdf.png'} alt="" />
+              <Text>{event.duration}</Text>
+            </Wrap>
+            <Wrap align={'center'}>
+              <Image  borderRadius="md" src={'https://res.cloudinary.com/dujun1hoe/image/upload/v1615297028/event-s/icons/announcement_pr7pea.png'} alt="" />
+              <Text>{event.limit}</Text>
+            </Wrap>
+            <Wrap align={'center'}>
+              <Image  borderRadius="md" src={'https://res.cloudinary.com/dujun1hoe/image/upload/v1615296945/event-s/icons/event_h6dtmv.png'} alt="" />
+              <Text>{event.type}</Text>
+            </Wrap>
+            <Wrap align={'center'}>
+              <Image  borderRadius="md" src={'https://res.cloudinary.com/dujun1hoe/image/upload/v1615296945/event-s/icons/done_r4quc3.png'} alt="" />
+              <Text>{event.attendees}</Text>
+            </Wrap>
+          </Flex>
+          <Flex h={'100%'} flex={2} p={4} alignContent={'center'}  flexDirection={'column'} >
+            <Text fontWeight="bold" align={'center'}>About this event</Text>
+            <Text mt={10} align={'center'} >{event.description}</Text>
+          </Flex>
+
       <Stack spacing={4}>
-      {
-        !Object.keys(user).length || user.host ?
-        null :
-        (
-          !user.eventList.some(el => el._id === id) ? (
-            <Attend handleSubmit={handleSubmit} />
-            ) : (
-              <Unattend unattend={unattend}/>
-              )
-              )
-            }
       </Stack>
     </Stack>
     </Box>
@@ -124,62 +114,6 @@ export default function EventDetails ({events, signUpDown,user}) {
 
 
 
-{/* <Flex minH={'100vh'} align={'center'} justify={'center'} bg={'gray.50'}>
-{
-  !event ?
-  <Spinner />
-  :
-  <Box w={'60%'} minW={'60%'} maxW={'60%'} bg={'gray.100'} m={4}  >
-  <Box>
-    <Image borderRadius="md" src={event.photo} alt="" />
-    <Heading mt={3} align={'center'}>{event.name}</Heading>
-  </Box>
-  <Box p={4}>
-  <Stack spacing={8}>
-  <Grid
-      borderRadius="md"
-      h="200px"
-      templateRows="repeat(2, 1fr)"
-      templateColumns="repeat(5, 1fr)"
-      gap={4}
-    >
-      <GridItem boxShadow={'md'} borderRadius="md" rowSpan={2} colSpan={1} bg={'custom.300'}>
-      <Text fontSize="4xl" p={3} align={'center'}>EVENT LIMIT {event.limit}</Text>
-      </GridItem>
-      <GridItem boxShadow={'md'} borderRadius="md" colSpan={2} bg={'custom.100'}>
-        <Text fontSize="3xl" p={3} align={'center'}>LOCATION {event.location}</Text>
-      </GridItem>
-      <GridItem boxShadow={'md'} borderRadius="md" colSpan={2} bg={'custom.300'}>
-        <Text fontSize="2xl" p={3} align={'center'}>DATE {moment(event.date).format("MMM Do YYYY")}</Text>
-        <Text fontSize="xl" p={3} align={'center'} >Duration {event.duration}</Text>
-      </GridItem>
-      <GridItem boxShadow={'md'} borderRadius="md" colSpan={2} bg={'custom.100'}>
-        <Text fontSize="2xl" p={3} align={'center'}>TYPE OF EVENT {event.type} </Text>
-      </GridItem>
-      <GridItem boxShadow={'md'} borderRadius="md" colSpan={2} bg={'custom.100'}>
-        <Text fontSize="2xl" p={3} align={'center'}>AMOUNT ATTENDING {event.attendees}</Text>
-      </GridItem>
-    </Grid>
-    <Box p={4}>
-      <Container align={'center'}>
-        <Text>{event.description}</Text>
-      </Container>
-    </Box>
-  <Stack spacing={4}>
-  {
-    !Object.keys(user).length || user.host ?
-    null :
-    (
-      !user.eventList.some(el => el._id === id) ? (
-        <Attend handleSubmit={handleSubmit} />
-        ) : (
-          <Unattend unattend={unattend}/>
-          )
-          )
-        }
-  </Stack>
-</Stack>
-</Box>
-</Box>
-}
-</Flex> */}
+
+
+
