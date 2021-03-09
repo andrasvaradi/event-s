@@ -14,7 +14,7 @@ import {
   Heading,
   FormHelperText
 } from '@chakra-ui/react';
-// import tempImage from '../../assets/1.jpg'
+import { motion } from 'framer-motion'
 const initialState = {
   email: '',
   password: '',
@@ -70,6 +70,25 @@ export default function Register (props) {
       backgroundRepeat="no-repeat"
     >
       <Stack spacing={8} w={'50%'} maxW={'lg'} py={12} px={6}>
+    <motion.div
+      initial={{
+        opacity: 0,
+        scale: 0
+      }}
+      animate={{
+        opacity: 1,
+        scale: 1
+      }}
+      transition={{
+        type: 'spring',
+        stiffness: 100,
+        ease: 'linear'
+      }}
+      exit={{
+        opacity: 0,
+        x: "-100vw"
+      }}
+      >
         <Stack align={'center'}>
           <Heading color={'white'} fontSize={'4xl'}>Create new account</Heading>
         </Stack>
@@ -149,6 +168,7 @@ export default function Register (props) {
             </Stack>
           </Stack>
         </Box>
+      </motion.div>
       </Stack>
     </Flex>
   );

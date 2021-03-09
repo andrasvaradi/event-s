@@ -22,6 +22,7 @@ import {
   Spacer
 } from '@chakra-ui/react';
 import { Link as RouterLink } from 'react-router-dom';
+import { motion } from 'framer-motion'
 
 const EventObject = {
   name: '',
@@ -61,6 +62,23 @@ export default function NewEvent({createEvent, user}) {
     bgSize="100%"
     backgroundRepeat="no-repeat">
       <Box rounded={'lg'} bg={'white'} boxShadow={'base'} p={8} minH={'80vh'} minW={'40vh'} w={'80%'} >
+       <motion.div
+            initial={{
+              opacity: 0,
+              scale: 0
+            }}
+            animate={{
+              opacity: 1,
+              scale: 1
+            }}
+            transition={{
+              type: 'spring',
+              stiffness: 100,
+              ease: 'easeIn',
+              delay: 0.5,
+              duration: 1,
+            }}
+            >
         { user.host ?
         <>
         <Text mb={16} fontSize={'4xl'} align={'center'}>Create a new event</Text>
@@ -190,6 +208,7 @@ export default function NewEvent({createEvent, user}) {
         :
         <Text align={'center'}>Only hosts can create new event</Text>
       }
+      </motion.div>
       </Box>
     </Flex>
   )

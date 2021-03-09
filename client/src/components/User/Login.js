@@ -13,6 +13,7 @@ import {
   Heading,
   Text,
 } from '@chakra-ui/react';
+import { motion } from 'framer-motion'
 
 const initialState = {
   email: '',
@@ -58,6 +59,27 @@ export default function Login(props) {
     bgSize="100%"
     backgroundRepeat="no-repeat"
     >
+      <motion.div
+      initial={{
+        opacity: 0,
+        x: "-100vw"
+      }}
+      animate={{
+        opacity: 1,
+        x:0
+      }}
+      transition={{
+        type: 'spring',
+        stiffness: 100,
+        ease: 'easeIn'
+      }}
+      exit={{
+        opacity: 0,
+        x: "-100vw"
+      }}
+      >
+
+      
       <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
         <Stack align={'center'}>
           <Heading color={'white'} fontSize={'4xl'}>Sign in to your account</Heading>
@@ -104,6 +126,7 @@ export default function Login(props) {
           </Stack>
         </Box>
       </Stack>
+      </motion.div>
     </Flex>
   );
 }

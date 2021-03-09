@@ -16,6 +16,7 @@ import Events from './containers/events/Events'
 import EventDetails from './components/Event/EventDetails'
 import NewEvent from './containers/events/NewEvent'
 import Footer from './components/Footer';
+import { motion, AnimatePresence } from 'framer-motion'
 
 function App () {
   const [status, setStatus] = useState(false)
@@ -69,6 +70,7 @@ function App () {
           : <main>
             <NavBar isAuthenticated={isAuthenticated} user={user} />
             {/* <Image /> */}
+            <AnimatePresence>
             <Switch>
               <Route path='/' exact component={Home} />
               <Route
@@ -106,6 +108,7 @@ function App () {
               {/* <Route path='/users/:id' exact component={UserDetails}/> */}
               <Route component={Error} />
             </Switch>
+            </AnimatePresence>
             <Footer />
           </main>
       }

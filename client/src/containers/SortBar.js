@@ -29,7 +29,7 @@ export default function SortBar({ checkBoxes, setCheckboxes }) {
   }
 
   return (
-    <Box w={'100%'} justify={'center'} borderRadius="md">
+    <Box w={'100%'} justify={'center'} borderRadius="md" mb={10}>
       <FormControl justify={'center'}>
         <Flex justify={'center'}  borderRadius="md">
           <Accordion w={'100%'}  allowMultiple bg={'gray.100'} borderRadius="md" >
