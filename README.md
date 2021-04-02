@@ -11,6 +11,16 @@ Event-s is an app which helps you find events based on your location and provide
 
 ![](https://res.cloudinary.com/dujun1hoe/image/upload/v1617380242/event-s/Launch_Day_Instagram_Template_usor6c.jpg)
 
+## Before you start
+
+Please get a free API key from [Mapbox](https://www.mapbox.com) and [Cloudinary](https://cloudinary.com/homepage-2)
+
+- Add a .env file in the server folder with the following:
+CLOUD_NAME='your cloud name goes here'
+API_KEY='your API key goes here'
+API_SECRET='your API secret goes here'
+- Add a .env.local file to your client folder with the following:
+REACT_APP_MAPBOX_ACCESS_TOKEN='your mapbox API key goes here'
 
 ## Getting started
 
