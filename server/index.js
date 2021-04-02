@@ -8,10 +8,8 @@ const config = require('./config');
 const app = express();
 
 const corsConfig = {
-
   origin: 'http://localhost:3000',
   credentials: true,
-
 };
 
 app.use(cors(corsConfig));
@@ -19,16 +17,14 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(
   session({
-    // the store property, if not specified, defaults to the in-memory store
     name: 'sid',
     saveUninitialized: false,
     resave: false,
     secret: 'testsecret',
     cookie: {
-      maxAge: 1000 * 60 * 60, // 1hr
+      maxAge: 1000 * 60 * 60,
       sameSite: true,
       httpOnly: false,
-      // we would want to set secure=true in a production environment
       secure: false,
     },
   })
@@ -65,5 +61,3 @@ app.get('*', (req, res) => {
     console.log(O_O);
   }
 })();
-
-// commitizen test

@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 import EventList from "../../components/Event/EventList";
 import SearchBar from "../SearchBar";
@@ -54,7 +53,7 @@ export default function Events({ value }) {
     backgroundRepeat="no-repeat"
      >
       <Flex h={'50px'} align={'flex-end'} justify={'center'}>
-        <motion.div 
+        <motion.div
         initial="hidden"
         animate="visible"
         variants={{
@@ -75,9 +74,6 @@ export default function Events({ value }) {
         </motion.div>
       </Flex>
     <Stack minH={'100vh'}  direction={{ base: 'column', md: 'row' }} p={5}
-    // bgImage="url('https://res.cloudinary.com/dujun1hoe/image/upload/v1615228154/event-s/gradient-background-26046-26731-hd-wallpapers.jpg_cenrqe.png')"  
-    // bgSize="cover"
-    // backgroundRepeat="no-repeat"
     >
       {
         false ?
@@ -113,4 +109,3 @@ export default function Events({ value }) {
      </Box>
   );
 }
-

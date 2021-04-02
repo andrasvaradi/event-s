@@ -1,8 +1,6 @@
-
 const User = require('./../models/users');
 
 const authMiddleware = async (req, res, next) => {
-
   console.log('check');
   try {
     const { uid } = req.session;

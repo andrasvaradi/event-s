@@ -5,13 +5,11 @@ import {
   Text
 } from '@chakra-ui/react';
 
-
-
 export default function SmallWithSocial() {
   return (
     <Box
-    bg={'custom.100'}
-    justify={'center'}
+      bg={'custom.100'}
+      justify={'center'}
     >
       <Container
         as={Stack}

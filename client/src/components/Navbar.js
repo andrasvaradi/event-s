@@ -1,6 +1,4 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 import React from 'react';
-
 import {
   Box,
   Flex,
@@ -23,13 +21,10 @@ import {
   Portal,
   PopoverArrow,
   ButtonGroup
-
 } from '@chakra-ui/react';
 import { Link as RouterLink } from "react-router-dom"
-import { motion } from 'framer-motion'
 
 export default function NavigationBar({ isAuthenticated, user }) {
-  // const { isOpen } = useDisclosure();
   console.log(user)
   return (
     <>
@@ -37,9 +32,8 @@ export default function NavigationBar({ isAuthenticated, user }) {
         bg={'custom.100'}
         px={4}
         boxShadow={'2xl'}
-        >
+      >
         <Flex h={16} alignItems={'center'} justifyContent={'center'} >
-
           <RouterLink to="/">
             <Image src={'logo-black.png'} w={'75px'} alt=""></Image>
           </RouterLink>
@@ -51,12 +45,12 @@ export default function NavigationBar({ isAuthenticated, user }) {
               display={{ base: 'none', md: 'flex' }}>
               <RouterLink to="/">
                 <Button
-                // color={'white'}
-                 bg={'transparent'}>Home</Button>
+                  // color={'white'}
+                  bg={'transparent'}>Home</Button>
               </RouterLink>
               <RouterLink to="/events">
-              <Button
-               bg={'transparent'}>Events</Button>
+                <Button
+                  bg={'transparent'}>Events</Button>
               </RouterLink>
 
             </HStack>
@@ -75,19 +69,19 @@ export default function NavigationBar({ isAuthenticated, user }) {
                 />
               </MenuButton>
               <MenuList>
-                  {
-                    isAuthenticated ?
+                {
+                  isAuthenticated ?
                     <>
-                    {
-                      user.host &&
-                      <RouterLink to="/new-event">
-                        <MenuItem>New event</MenuItem>
+                      {
+                        user.host &&
+                        <RouterLink to="/new-event">
+                          <MenuItem>New event</MenuItem>
+                        </RouterLink >
+                      }
+                      <RouterLink to="/profile">
+                        <MenuItem>Profile</MenuItem>
                       </RouterLink >
-                    }
-                    <RouterLink to="/profile">
-                      <MenuItem>Profile</MenuItem>
-                    </RouterLink >
-                    <MenuDivider />
+                      <MenuDivider />
                       <Popover>
                         <PopoverTrigger>
                           <Button w={'100%'} >Logout</Button>
@@ -99,11 +93,11 @@ export default function NavigationBar({ isAuthenticated, user }) {
                             <PopoverCloseButton />
                             <PopoverBody>
                               <ButtonGroup size="sm">
-                                  <Button variant="outline">No</Button>
-                                  <RouterLink to="/logout">
+                                <Button variant="outline">No</Button>
+                                <RouterLink to="/logout">
                                   <Button bg="custom.100">Yes</Button>
-                                  </RouterLink>
-                                </ButtonGroup>
+                                </RouterLink>
+                              </ButtonGroup>
                             </PopoverBody>
                           </PopoverContent>
                         </Portal>
@@ -113,12 +107,11 @@ export default function NavigationBar({ isAuthenticated, user }) {
                     <RouterLink to="/login">
                       <MenuItem>Sign In</MenuItem>
                     </RouterLink>
-                  }
+                }
               </MenuList>
             </Menu>
           </Flex>
         </Flex>
-
       </Box>
     </>
   );

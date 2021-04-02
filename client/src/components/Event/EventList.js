@@ -4,7 +4,6 @@ import { Wrap } from "@chakra-ui/react"
 
 
 export default function EventList ({value}) {
-  // console.log(value)
   return (
   <Wrap w={'100%'} marginTop={5} align="start">
     {
@@ -14,5 +13,3 @@ export default function EventList ({value}) {
   </Wrap>
   )
 }
-
-
