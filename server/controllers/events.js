@@ -8,10 +8,10 @@ exports.getEvents = async (req, res) => {
     const events = await Events.find();
     res.status(200);
     res.send(events);
-  } catch (O_O) {
+  } catch (err) {
     console.error('GET EVENTS: ', error);
     res.status(500);
-    res.send(O_O);
+    res.send(err);
   }
 };
 exports.getSingleEvent = async (req, res) => {
@@ -20,43 +20,36 @@ exports.getSingleEvent = async (req, res) => {
     const event = await Events.find({ _id: id });
     res.status(200);
     res.send(event);
-  } catch (O_O) {
+  } catch (err) {
     console.error('SINGLE EVENT: ', error);
     res.status(500);
-    res.send(O_O);
+    res.send(err);
   }
 };
 exports.postEvent = async (req, res) => {
   try {
     const { _id } = req.user;
     let { location } = req.body;
-    console.log(location);
     const getGeoLocation = await axios.get(`http://api.postcodes.io/postcodes/${location}`);
-    console.log(getGeoLocation);
     geolocation = `${getGeoLocation.data.result.longitude},${getGeoLocation.data.result.latitude}`;
     const newEvent = { ...req.body, geolocation, owner: _id };
     const events = await Events.create(newEvent);
     const addToUser = await Users.findByIdAndUpdate(_id, { $push: { eventList: events._id } }, { new: true });
-    console.log(events);
     res.status(201);
     res.send(events);
-  } catch (O_O) {
-    console.error('POST EVENT: ', O_O);
+  } catch (err) {
+    console.error('POST EVENT: ', err);
     res.status(400);
-    res.send(O_O);
+    res.send(err);
   }
 };
 
 exports.deleteEvent = async (req, res) => {
   try {
     const { id } = req.params;
-    console.log('ID FROM PARAMS', id);
     const event = await Events.findOne({ _id: id });
-    console.log('EVENT THAT WAS FOUND: ', event);
     await Promise.all(event.list.map(async (el, i) => {
       await Users.findByIdAndUpdate(event.list[i], { $pull: { eventList: event._id } }, { new: true });
-      console.log(event.list[i]);
-      console.log(i);
     }));
     const deleteFromHost = await Users.findByIdAndUpdate(event.owner, { $pull: { eventList: event._id } }, { new: true });
     const deleteEvent = await Events.deleteOne({ _id: id });

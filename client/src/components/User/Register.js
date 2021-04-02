@@ -35,7 +35,6 @@ export default function Register(props) {
       ...prevState,
       [name]: value
     }));
-    console.log(state)
   };
 
   const handleSubmit = async (e) => {

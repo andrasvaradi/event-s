@@ -33,10 +33,8 @@ export default function NewEvent({ createEvent, user }) {
   const [event, setEvent] = useState(EventObject)
 
   let handleInputChange = (e) => {
-    console.log(e.target)
     let { name, value } = e.target
     setEvent({ ...event, [name]: value })
-    console.log(event)
   }
   function handleSubmit(e) {
     e.preventDefault();
@@ -45,7 +43,6 @@ export default function NewEvent({ createEvent, user }) {
     } else if (event.name === '' || event.location === '') {
       alert('Please fill out all the required fields')
     }
-    console.log('hello')
     createEvent(event)
     setEvent(EventObject)
   }

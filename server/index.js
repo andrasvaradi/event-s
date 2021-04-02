@@ -57,7 +57,7 @@ app.get('*', (req, res) => {
 
     `);
     });
-  } catch (O_O) {
-    console.log(O_O);
+  } catch (err) {
+    console.log(err);
   }
 })();

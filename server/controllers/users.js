@@ -43,7 +43,6 @@ const login = async (req, res) => {
 };
 
 const profile = async (req, res) => {
-  console.log('Getting');
   try {
     const populatedUser = await User.findOne({ _id: req.user._id }).populate('eventList');
     const { _id, firstName, lastName, host, photo, about, location, eventList } = populatedUser;
@@ -70,7 +69,6 @@ const logout = (req, res) => {
 const getHostDetails = async (req, res) => {
   try {
     const { id } = req.params;
-    console.log(id);
     const populatedUser = await User.findOne({ _id: id }).populate('eventList');
     const { _id, firstName, lastName, host, photos, about, location, eventList } = populatedUser;
     const user = { _id, firstName, lastName, host, photos, about, location, eventList };

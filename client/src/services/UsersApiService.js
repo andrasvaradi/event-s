@@ -3,7 +3,6 @@ const BASE_URL = 'http://localhost:4000';
 const apiService = {};
 
 apiService.register = (user) => {
-  console.log(user)
   return fetch(`${BASE_URL}/register`, {
     method: 'POST',
     credentials: 'include',

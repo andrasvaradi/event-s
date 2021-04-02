@@ -25,7 +25,6 @@ import {
 import { Link as RouterLink } from "react-router-dom"
 
 export default function NavigationBar({ isAuthenticated, user }) {
-  console.log(user)
   return (
     <>
       <Box

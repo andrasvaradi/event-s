@@ -45,7 +45,6 @@ function App() {
           return copy
         }))
         .then(() => updateUser())
-        .then(console.log(user))
     } else {
       EventsApiService.signDown(id)
         .then(updated => setEvents((events) => {
@@ -55,7 +54,6 @@ function App() {
           return copy
         }))
         .then(() => updateUser())
-        .then(console.log(user))
     }
   }
   function updateUser() {

@@ -10,10 +10,8 @@ import { motion } from 'framer-motion'
 
 
 export default function EventDetails({ events, signUpDown, user }) {
-
   let { id } = useParams();
   const event = events.find(el => el._id === id)
-  console.log(event)
   const handleSubmit = (e) => {
     e.preventDefault()
     signUpDown('up', id);
